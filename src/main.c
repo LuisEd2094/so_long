@@ -9,10 +9,7 @@
             errors(1);
         fd = open(argv[1], O_RDONLY);
         if (fd == -1)
-        {
-            ft_printf("Error\n%s\n", strerror(errno));
-            exit(1);
-        }
+            errors(2);
 
     }
 

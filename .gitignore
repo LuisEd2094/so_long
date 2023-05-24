@@ -1,3 +1,4 @@
 *.o
 so_long
 libft/libft.a
+maps/no_per.txt
