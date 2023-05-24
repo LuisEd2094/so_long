@@ -10,7 +10,7 @@ LDFLAGS		= -L$(LIB_PATH) -lft
 SRCS_PATH           = src/
 PRINTF_PATH	=	ftprintf/
 OBJS_PATH           = obj/
-SRC         =	main.c errors.c
+SRC         =	main.c errors.c parse_arguments.c
 
 SRC_PRINT	=	ft_c_format.c ft_i_format.c ft_printf_itoa.c ft_s_format.c \
 				ft_uitoa.c ft_flags.c ft_p_format.c ft_printf_utils.c \
