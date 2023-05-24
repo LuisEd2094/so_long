@@ -1,15 +1,16 @@
 
 
-NAME        = so_long
-CC          = gcc
-CFLAGS      = -Wall -Wextra  -Werror
-RM          = rm -f
-LIB_PATH	= ./libft
-LIB_SRC_P	= ./$(LIB_PATH)/src/
-LDFLAGS		= -L$(LIB_PATH) -lft
-SRCS_PATH           = src/
-PRINTF_PATH	=	ftprintf/
-OBJS_PATH           = obj/
+NAME        = 	so_long
+CC          = 	gcc
+CFLAGS      = 	-Wall -Wextra  -Werror
+RM          = 	rm -f
+LIB_PATH	= 	./libft
+LIB_SRC_P	= 	./$(LIB_PATH)/src/
+LDFLAGS		= 	-L$(LIB_PATH) -lft
+SRCS_PATH	= 	src/
+PRINTF_PATH	= 	ftprintf/
+OBJS_PATH	= 	obj/
+LINE_PATH	=	get_next_line/
 SRC         =	main.c errors.c parse_arguments.c
 
 SRC_PRINT	=	ft_c_format.c ft_i_format.c ft_printf_itoa.c ft_s_format.c \
@@ -29,11 +30,16 @@ SRC_LIB		=	ft_atoi.c ft_lstadd_back.c ft_memchr.c ft_split.c \
 				ft_strlcpy.c ft_toupper.c ft_itoa.c ft_lstsize.c ft_putstr_fd.c \
 				ft_strlen.c
 
+SRC_LINE	=	get_next_line.c get_next_line_utils.c
+
 
 SRCS        =	$(addprefix $(SRCS_PATH),$(SRC)) \
-			  	$(addprefix $(PRINTF_PATH),$(SRC_PRINT))
+			  	$(addprefix $(PRINTF_PATH),$(SRC_PRINT)) \
+				$(addprefix $(LINE_PATH),$(SRC_LINE))
 OBJS        =	$(addprefix $(OBJS_PATH),$(SRC:.c=.o)) \
-				$(addprefix $(OBJS_PATH),$(SRC_PRINT:.c=.o))
+				$(addprefix $(OBJS_PATH),$(SRC_PRINT:.c=.o)) \
+				$(addprefix $(OBJS_PATH),$(SRC_LINE:.c=.o))
+
 LIBS		=	$(addprefix $(LIB_SRC_P),$(SRC_LIB))
 INCS        = -I ./include/
 
@@ -53,6 +59,11 @@ $(OBJS_PATH)%.o: $(SRCS_PATH)%.c
 	@echo "$(BLUE)Compiling $< $(DEF_COLOR)"
 
 $(OBJS_PATH)%.o: $(PRINTF_PATH)%.c
+	@mkdir -p $(@D)
+	@$(CC) $(CFLAGS) $(INCS) -c $< -o $@
+	@echo "$(MAGENTA)Compiling $< $(DEF_COLOR)"
+
+$(OBJS_PATH)%.o: $(LINE_PATH)%.c
 	@mkdir -p $(@D)
 	@$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 	@echo "$(MAGENTA)Compiling $< $(DEF_COLOR)"

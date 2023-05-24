@@ -10,8 +10,7 @@ void errors(int val)
     if (val == 1)
         ft_printf("Usage: ./so_long path/to/file .\n");
     else if (val == 2)
-        ft_printf("%s\n", strerror(errno));
+        perror(NULL);
 
     exit(EXIT_FAILURE);
-        
 } 
