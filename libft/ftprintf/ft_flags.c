@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_printf.h"
-#include "../include/libft.h"
+#include "../includes/ft_printf.h"
+#include "../includes/libft.h"
 
 int	fg_space_plus(const char *s, char *f, char flg)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "../includes/libft.h"
 
 int	ft_int_len(int n)
 {

@@ -10,13 +10,16 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	libft.a
-INCLUDES	=	../include
-SRCS_DIR	=	src/
-OBJS_DIR	=	obj/
-CFLAGS		=	-Wall -Werror -Wextra -I
-RM			=	rm -f
-AR			=	ar rcs
+NAME			=	libft.a
+INCLUDES		=	-I./includes
+LIBFT_DIR		=	src/
+PRINT_DIR		=	ftprintf/
+NEXT_LINE_DIR	=	get_next_line/
+OBJS_DIR		=	obj/
+DEPS_DIR		=	deps/
+CFLAGS			=	-Wall -Werror -Wextra
+RM				=	rm -f
+AR				=	ar rcs
 
 
 #Colors
@@ -33,51 +36,80 @@ WHITE = \033[0;97m
 
 ###
 
-FILES		=	ft_atoi ft_bzero ft_calloc ft_isalnum ft_isalpha ft_isascii\
-				ft_isdigit ft_isprint ft_itoa ft_memchr ft_memcmp ft_memcpy\
-	   			ft_memmove ft_strchr ft_strdup ft_strlcat ft_strlcpy ft_strlen\
-	   			ft_strncmp ft_strnstr ft_strrchr ft_tolower ft_toupper ft_memset\
-	   			ft_substr ft_strjoin ft_strtrim ft_strmapi ft_striteri\
-	   			ft_putchar_fd ft_putendl_fd ft_putstr_fd ft_putnbr_fd ft_split\
-				ft_lstnew ft_lstadd_front ft_lstsize ft_lstlast ft_lstadd_back\
-				ft_lstdelone ft_lstclear ft_lstiter ft_lstmap ft_strcmp
+LIBFT_FILES		=	ft_atoi.c ft_isalpha.c ft_itoa.c ft_lstdelone.c ft_lstnew.c \
+					ft_memcpy.c ft_putendl_fd.c ft_strchr.c ft_strjoin.c \
+					ft_strmapi.c ft_strtrim.c ft_bzero.c ft_isascii.c \
+					ft_lstadd_back.c ft_lstiter.c ft_lstsize.c ft_memmove.c \
+					ft_putnbr_fd.c ft_strcmp.c ft_strlcat.c ft_strncmp.c \
+					ft_substr.c ft_calloc.c ft_isdigit.c ft_lstadd_front.c \
+					ft_lstlast.c ft_memchr.c ft_memset.c ft_putstr_fd.c \
+					ft_strdup.c ft_strlcpy.c ft_strnstr.c ft_tolower.c \
+					ft_isalnum.c ft_isprint.c ft_lstclear.c ft_lstmap.c \
+					ft_memcmp.c ft_putchar_fd.c ft_split.c ft_striteri.c ft_strlen.c\
+					ft_strrchr.c ft_toupper.c
 
-SRC_FILES		+= $(addprefix $(SRC_DIR), $(FILES))
+NEXT_LINE_FILES	=	get_next_line.c get_next_line_utils.c
 
-SRCS 		= 	$(addprefix $(SRCS_DIR), $(addsuffix .c, $(SRC_FILES)))
-OBJS		=	$(addprefix $(OBJS_DIR), $(addsuffix .o, $(SRC_FILES)))
+FTPRINTF_FILES	=	ft_c_format.c ft_i_format.c ft_printf_itoa.c ft_s_format.c \
+					ft_uitoa.c ft_flags.c ft_p_format.c ft_printf_utils.c ft_safe_free.c \
+					ft_x_format.c ft_flags2.c ft_printf.c ft_put_words.c ft_u_format.c
+
+
+
+OBJS		=	$(addprefix $(OBJS_DIR), $(LIBFT_FILES:.c=.o)) \
+				$(addprefix $(OBJS_DIR), $(FTPRINTF_FILES:.c=.o)) \
+				$(addprefix $(OBJS_DIR), $(NEXT_LINE_FILES:.c=.o))
+
+DEPS		=	$(addprefix $(DEPS_DIR), $(LIBFT_FILES:.c=.d)) \
+				$(addprefix $(DEPS_DIR), $(FTPRINTF_FILES:.c=.d)) \
+				$(addprefix $(DEPS_DIR), $(NEXT_LINE_FILES:.c=.d))
 
 ###
 
-OBJSF		= .cache_exists
 
-all:		$(NAME)
+all:	$(NAME) 
 
+$(OBJS_DIR)%.o: $(LIBFT_DIR)%.c | $(OBJS_DIR) $(DEPS_DIR)
+			@echo "$(CYAN)Compiling $< $(DEF_COLOR)"
+			@$(CC) $(CFLAGS) $(INCLUDES) -MMD -MP -c $< -o $@
+			@mv $(OBJS_DIR)$(notdir $(basename $<)).d $(DEPS_DIR)
+
+
+$(OBJS_DIR)%.o: $(PRINT_DIR)%.c | $(OBJS_DIR) $(DEPS_DIR)
+			@echo "$(CYAN)Compiling $< $(DEF_COLOR)"
+			@$(CC) $(CFLAGS) $(INCLUDES) -MMD -MP -c $< -o $@
+			@mv $(OBJS_DIR)$(notdir $(basename $<)).d $(DEPS_DIR)
+
+$(OBJS_DIR)%.o: $(NEXT_LINE_DIR)%.c | $(OBJS_DIR) $(DEPS_DIR)
+			@echo "$(CYAN)Compiling $< $(DEF_COLOR)"
+			@$(CC) $(CFLAGS) $(INCLUDES) -MMD -MP -c $< -o $@
+			@mv $(OBJS_DIR)$(notdir $(basename $<)).d $(DEPS_DIR)
+			 
 $(NAME):	$(OBJS)
 			@$(AR) $(NAME) $(OBJS)
 			@ranlib $(NAME)
 			@echo "$(GREEN)Libft compiled! $(DEF_COLOR)"
 
-$(OBJS_DIR)%.o : $(SRCS_DIR)%.c | $(OBJSF)
-			@echo "$(CYAN)Compiling $< $(DEF_COLOR)"
-			@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+$(OBJS_DIR):
+		@echo "$(GREEN)Creating Libft Obj Dir $(DEF_COLOR)"
+		@mkdir -p $(OBJS_DIR)
+$(DEPS_DIR):
+		@echo "$(GREEN)Creating Libft Deps Dir $(DEF_COLOR)"
+		@mkdir -p $(DEPS_DIR)
 
-$(OBJSF):
-			@mkdir -p $(OBJS_DIR)
+
+-include $(DEPS)
 
 clean:
-		@$(RM) -rf $(OBJS_DIR)
-		@$(RM) -r $(OBJSF)
-		@echo "$(GREEN)Libft objects files cleaned!$(DEF_COLOR)"
+		@$(RM) -rf $(OBJS_DIR) $(DEPS_DIR)
+		@echo "$(GREEN)Libft objects and Deps cleaned!$(DEF_COLOR)"
 
 fclean:	clean
 		@$(RM) -f $(NAME)
-		@echo "$(GREEN)Libft executable files cleaned!$(DEF_COLOR)"
+		@echo "$(GREEN)Libft library cleaned!$(DEF_COLOR)"
 
 re:		fclean all
-		@echo "$(GREEN)Cleaned and rebuilt everything!$(DEF_COLOR)"
+		@echo "$(GREEN)Cleaned and rebuilt Libft!$(DEF_COLOR)"
 
-norm:
-		@norminette $(SRCS) $(INCLUDES)
 
-.PHONY:		all clean fclean re norm
+.PHONY:		all clean fclean re

@@ -1,89 +1,85 @@
 
 
 NAME        = 	so_long
-CC          = 	gcc
 CFLAGS      = 	-Wall -Wextra  -Werror
 RM          = 	rm -f
 LIB_PATH	= 	./libft
-LIB_SRC_P	= 	./$(LIB_PATH)/src/
 LDFLAGS		= 	-L$(LIB_PATH) -lft
 SRCS_PATH	= 	src/
-PRINTF_PATH	= 	ftprintf/
 OBJS_PATH	= 	obj/
-LINE_PATH	=	get_next_line/
+DEPS_PATH	=	deps/
 SRC         =	main.c errors.c parse_arguments.c
-
-SRC_PRINT	=	ft_c_format.c ft_i_format.c ft_printf_itoa.c ft_s_format.c \
-				ft_uitoa.c ft_flags.c ft_p_format.c ft_printf_utils.c \
-				ft_safe_free.c ft_x_format.c ft_flags2.c ft_printf.c \
-				ft_put_words.c ft_u_format.c
-
-SRC_LIB		=	ft_atoi.c ft_lstadd_back.c ft_memchr.c ft_split.c \
-				ft_strmapi.c ft_bzero.c ft_lstadd_front.c\
-				ft_memcmp.c ft_strchr.c ft_strncmp.c ft_calloc.c \
-				ft_lstclear.c ft_memcpy.c ft_strcmp.c ft_strnstr.c \
-				ft_isalnum.c ft_lstdelone.c ft_memmove.c ft_strdup.c \
-			   	ft_strrchr.c ft_isalpha.c ft_lstiter.c ft_memset.c ft_striteri.c \
-				ft_strtrim.c ft_isascii.c ft_lstlast.c ft_putchar_fd.c \
-				ft_strjoin.c ft_substr.c ft_isdigit.c ft_lstmap.c ft_putendl_fd.c \
-				ft_strlcat.c ft_tolower.c ft_isprint.c ft_lstnew.c ft_putnbr_fd.c \
-				ft_strlcpy.c ft_toupper.c ft_itoa.c ft_lstsize.c ft_putstr_fd.c \
-				ft_strlen.c
-
-SRC_LINE	=	get_next_line.c get_next_line_utils.c
+INCS        =	-I./include/ -I./libft/includes
 
 
-SRCS        =	$(addprefix $(SRCS_PATH),$(SRC)) \
-			  	$(addprefix $(PRINTF_PATH),$(SRC_PRINT)) \
-				$(addprefix $(LINE_PATH),$(SRC_LINE))
-OBJS        =	$(addprefix $(OBJS_PATH),$(SRC:.c=.o)) \
-				$(addprefix $(OBJS_PATH),$(SRC_PRINT:.c=.o)) \
-				$(addprefix $(OBJS_PATH),$(SRC_LINE:.c=.o))
+#Colors
+
+DEF_COLOR = \033[0;39m
+GRAY = \033[0;90m
+RED = \033[0;91m
+GREEN = \033[0;92m
+YELLOW = \033[0;93m
+BLUE = \033[0;94m
+MAGENTA = \033[0;95m
+CYAN = \033[0;96m
+WHITE = \033[0;97m
+LIGHT_GREEN = \033[1;92m
+
+###
+
+SRC			=	errors.c main.c parse_arguments.c
+
+
+OBJS        =	$(addprefix $(OBJS_PATH),$(SRC:.c=.o))
+
+DEPS		=	$(addprefix $(DEPS_PATH),$(SRC:.c=.d))
 
 LIBS		=	$(addprefix $(LIB_SRC_P),$(SRC_LIB))
-INCS        = -I ./include/
-
-
-CYAN = \033[0;96m
-GREEN = \033[0;92m
-MAGENTA = \033[0;95m
-BLUE = \033[0;94m
 
 
 
-all: $(NAME)
+all: make_lib $(NAME)
 
-$(OBJS_PATH)%.o: $(SRCS_PATH)%.c
-	@mkdir -p $(@D)
-	@$(CC) $(CFLAGS) $(INCS) -c $< -o $@
-	@echo "$(BLUE)Compiling $< $(DEF_COLOR)"
+$(OBJS_PATH)%.o: $(SRCS_PATH)%.c | $(OBJS_PATH) $(DEPS_PATH)
+	@echo "$(CYAN)Compiling $< $(DEF_COLOR)"
+	@$(CC) $(CFLAGS) $(INCS) -MMD -MP -c $< -o $@
+	@mv $(OBJS_PATH)$(notdir $(basename $<)).d $(DEPS_PATH)
 
-$(OBJS_PATH)%.o: $(PRINTF_PATH)%.c
-	@mkdir -p $(@D)
-	@$(CC) $(CFLAGS) $(INCS) -c $< -o $@
-	@echo "$(MAGENTA)Compiling $< $(DEF_COLOR)"
+$(OBJS_PATH):
+	@echo "$(GREEN)Creating So long Obj Dir $(DEF_COLOR)"
+	@mkdir -p $(OBJS_PATH)
 
-$(OBJS_PATH)%.o: $(LINE_PATH)%.c
-	@mkdir -p $(@D)
-	@$(CC) $(CFLAGS) $(INCS) -c $< -o $@
-	@echo "$(MAGENTA)Compiling $< $(DEF_COLOR)"
+$(DEPS_PATH):
+	@echo "$(GREEN)Creating So long Deps Dir $(DEF_COLOR)"
+	@mkdir -p $(DEPS_PATH)
 
-$(LIB_PATH)/libft.a : $(LIBS)
-	@$(MAKE) -C $(LIB_PATH)
+make_lib: 
+	@$(MAKE) -s -C $(LIB_PATH)
 
 $(NAME): $(OBJS) $(LIB_PATH)/libft.a
 	@$(CC) $(CFLAGS) $(INCS) $(OBJS) -o $(NAME) $(LDFLAGS)
-	@echo "$(GREEN)So Long compiled!"
+	@echo "$(GREEN)So Long compiled!$(DEF_COLOR)"
 	
 
-clean:
-	@$(RM) -r $(OBJS_PATH)
-	@$(MAKE) clean -C $(LIB_PATH) 
-	@echo "$(GREEN)so_long executable files cleaned!$(DEF_COLOR)"
+-include $(DEPS)
 
+fclean_lib:
+	@$(MAKE) fclean -s -C $(LIB_PATH)
 
-fclean: clean
+clean_lib:
+	@$(MAKE) clean -s -C $(LIB_PATH) 
+
+clean: clean_lib clean_objects
+
+fclean: fclean_lib clean_objects
 	@$(RM) $(NAME)
-	@$(MAKE) fclean -C $(LIB_PATH)
+	@echo "$(GREEN)So Long executable cleaned!$(DEF_COLOR)"
 
-re: fclean all
+clean_objects:
+	@echo "$(GREEN)So Long Objects and Dependencies cleaned!$(DEF_COLOR)"
+	@$(RM) -r $(OBJS_PATH) $(DEPS_PATH)
+
+
+re: fclean all 
+
+.PHONY: all fclean clean fclean_lib clean_lib re 

@@ -1,4 +1,4 @@
-#include "../include/get_next_line.h"
+#include "../includes/get_next_line.h"
 
 void	*ft_free_strs_line(char **str, char **str2)
 {

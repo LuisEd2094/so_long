@@ -1,6 +1,5 @@
-#include "../include/get_next_line.h"
-#include "../include/so_long.h"
-#include "../include/libft.h"
+#include "../includes/get_next_line.h"
+#include "../includes/libft.h"
 
 char	*parse_line(char *buffer)
 {

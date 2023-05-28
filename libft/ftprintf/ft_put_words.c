@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_safe_free_bonus.c                               :+:      :+:    :+:   */
+/*   ft_put_words_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lsoto-do <lsoto-do@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/31 16:17:30 by lsoto-do          #+#    #+#             */
-/*   Updated: 2023/05/10 16:53:34 by lsoto-do         ###   ########.fr       */
+/*   Created: 2022/10/31 16:17:04 by lsoto-do          #+#    #+#             */
+/*   Updated: 2023/05/10 16:53:05 by lsoto-do         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_printf.h"
+#include "../includes/ft_printf.h"
 
-int	ft_free_strs(char **str, char **str2, char **str3)
+int	put_char(char c)
 {
-	if ((str && *str))
+	if (write (1, &c, 1) != 1)
+		return (-1);
+	return (1);
+}
+
+int	put_str(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
 	{
-		free(*str);
-		*str = NULL;
+		if (put_char(s[i]) == -1)
+			return (ft_free_strs(&s, 0, 0));
+		i++;
 	}
-	if (str2 && *str2)
-	{
-		free(*str2);
-		*str2 = NULL;
-	}
-	if (str3 && *str3)
-	{
-		free(*str3);
-		*str3 = NULL;
-	}
-	return (-1);
+	ft_free_strs(&s, 0, 0);
+	return (i);
 }

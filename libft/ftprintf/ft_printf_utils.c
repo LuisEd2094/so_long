@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_printf.h"
-#include "../include/libft.h"
+#include "../includes/ft_printf.h"
+#include "../includes/libft.h"
 
 char	*add_spaces(char *str, t_flags flg, int len)
 {

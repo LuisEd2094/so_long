@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
-#include "../include/ft_printf.h"
+#include "../includes/libft.h"
+#include "../includes/ft_printf.h"
 
 char	*get_zeros(t_flags flg, int len)
 {

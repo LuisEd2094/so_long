@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_printf.h"
+#include "../includes/ft_printf.h"
 
 int	fg_zero(const char *s, char *f)
 {

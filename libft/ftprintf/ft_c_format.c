@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_printf.h"
+#include "../includes/ft_printf.h"
 
 int	c_left_space(t_flags flg, char arg)
 {
