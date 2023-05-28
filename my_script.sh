@@ -19,6 +19,23 @@ expected_outputs=(
     $'Error\nInvalid map, please provide a map with just 1 0 E P C characters'
 )
 
+
+
+
+if [[ -n "$1" ]]; then
+    # Run a specific test case if an argument is provided
+    index=$(($1 - 1))
+
+    if (( index >= 0 && index < ${#test_cases[@]} )); then
+        test_cases=( "${test_cases[$index]}" )
+        expected_errors=( "${expected_outputs[$index]}" )
+        expected_leaks=( "${expected_leaks[$index]}" )
+    else
+        echo "Invalid test case number."
+        exit 1
+    fi
+fi
+
 for i in "${!test_cases[@]}"; do
     test_case="${test_cases[$i]}"
     expected_output="${expected_outputs[$i]}"
