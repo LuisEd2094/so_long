@@ -57,7 +57,7 @@ make_lib:
 	@$(MAKE) -s -C $(LIB_PATH)
 
 $(NAME): $(OBJS) $(LIB_PATH)/libft.a
-	@$(CC) $(CFLAGS) $(INCS) $(OBJS) -o $(NAME) $(LDFLAGS)
+	@$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 	@echo "$(GREEN)So Long compiled!$(DEF_COLOR)"
 	
 

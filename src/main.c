@@ -1,4 +1,4 @@
-#include "../include/so_long.h"
+#include "so_long.h"
 #include <stdlib.h>
 
 int BUFFER_SIZE = 1024;

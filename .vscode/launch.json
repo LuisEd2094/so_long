@@ -16,7 +16,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}",
-            "args": ["${workspaceFolder}/maps/map1.ber"],
+            "args": ["${workspaceFolder}/maps/InvalidMap_Size.ber"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],

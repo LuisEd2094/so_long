@@ -7,12 +7,13 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${workspaceFolder}/src/*.c",
-                "${workspaceFolder}/libft/src/*.c",
-                "${workspaceFolder}/ftprintf//*.c",
-                "${workspaceFolder}/get_next_line/*.c",
+                "-I../include/",
+                "-I../libft/includes",
+                "${workspaceFolder}/src/errors.c", "${workspaceFolder}/src/main.c", "${workspaceFolder}/src/parse_arguments.c ",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "${fileDirname}/${fileBasenameNoExtension}",
+                "-L${workspaceFolder}/libft",
+                "-lft"
             ],
             "options": {
                 "cwd": "${fileDirname}"
