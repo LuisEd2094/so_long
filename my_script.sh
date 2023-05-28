@@ -1,31 +1,45 @@
 #!/bin/bash
 
 
-test(){
-    valgrind --leak-check=full ./so_long 
-    exit_status=$?
-    echo "Exit status: $exit_status"
+test_cases=(
+    "ValidMap.ber"
+    "no_per.ber"
+    "invalid_ext.txt"
+    "InvalidMap_Size.ber"
+    "InvalidMap_Square.ber"
+    "Invalid_char.ber"
+)
 
-    valgrind --leak-check=full ./so_long maps/ValidMap.ber
-    exit_status=$?
-    echo "Exit status: $exit_status"
+expected_outputs=(
+    ""
+    $'Error'
+    $'Error\nInvalid map file extension, please provide a .ber file'
+    $'Error\nInvalid map. Please provide a rectangular map'
+    $'Error\nInvalid map. Please provide a rectangular map'
+    $'Error\nInvalid map, please provide a map with just 1 0 E P C characters'
+)
 
-    valgrind --leak-check=full ./so_long maps/no_per.ber
-    exit_status=$?
-    echo "Exit status: $exit_status"
+for i in "${!test_cases[@]}"; do
+    test_case="${test_cases[$i]}"
+    expected_output="${expected_outputs[$i]}"
+    out_put=$(./so_long maps/"$test_case")
+    expected_leak="All heap blocks were freed -- no leaks are possible"
 
-    valgrind --leak-check=full ./so_long maps/invalid_ext.txt
-    exit_status=$?
-    echo "Exit status: $exit_status"
+    valgrind_output=$(valgrind --leak-check=full ./so_long maps/"$test_case" 2>&1)
+    #exit_status=$?
+    #echo "Exit status: $exit_status"
 
-    valgrind --leak-check=full ./so_long maps/InvalidMap_Size.ber
-    exit_status=$?
-    echo "Exit status: $exit_status"
-    
-    valgrind --leak-check=full ./so_long maps/InvalidMap_Square.ber
-    exit_status=$?
-    echo "Exit status: $exit_status"
-}
+    if [[ "$out_put" == "$expected_output" ]]; then
+        echo "Test case \"$test_case\" passed. "
+    else
+        echo "Test case \"$test_case\" failed. Expected output: \"$expected_output\" Got \"$out_put\""
+    fi
 
+    if [[ "$valgrind_output" == *"$expected_leak"* ]]; then
+        echo "Test case \"$test_case\" - No leaks message passed."
+    else
+        echo "Test case \"$test_case\" - No leaks message failed. Expected: \"$expected_leak\""
+    fi
 
-test
+    echo ""
+done

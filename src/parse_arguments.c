@@ -20,6 +20,28 @@ void     check_if_EOF(int *is_EOF)
 }
 
 
+int    check_character(char chr)
+{
+    char    *str;
+    int     i;
+    int     valid;
+
+    str = "01CEP";
+    i = 0;
+    valid = 0;
+    while(str[i])
+    {
+        if (str[i] == chr)
+        {
+            valid = 1;
+            break;
+        }
+        i++;
+    }
+    return (valid);
+
+}
+
 void    check_line(int  *is_EOF, char *line, t_rect *rect_info, int fd)
 {
     int i = 0;
@@ -30,6 +52,15 @@ void    check_line(int  *is_EOF, char *line, t_rect *rect_info, int fd)
     {
         while(line[i] && line[i] != '\n')
         {
+            if(!check_character(line[i]))
+            {   
+                free(line);
+                BUFFER_SIZE = 0;
+                get_next_line(fd);
+                free(rect_info);
+                close(fd);
+                errors(5);
+            }
             i++;
             rect_info->current_line_width++;
         }
@@ -93,7 +124,9 @@ void    parse_file(int fd)
         errors(3);
     }
 
-    printf("\n");
+    /// Ill probably want to save some information from the rect_info to the full program
+    /// haven't decided yet 
+
     free(rect_info);
 }
 
