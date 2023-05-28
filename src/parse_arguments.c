@@ -36,6 +36,8 @@ void    check_line(int  *is_EOF, char *line, t_rect *rect_info, int fd)
         {
             rect_info->rect_width = rect_info->current_line_width;
             rect_info->found_width = 1;
+            rect_info->current_line_width = 0;
+            rect_info->height++;
         }
         else if (line[i] == '\n' || !line[i])
         {
@@ -83,6 +85,11 @@ void    parse_file(int fd)
         line = get_next_line(fd);
         check_line(&(is_EOF), line, rect_info, fd);
         free(line);
+    }
+    if (rect_info->height == rect_info->rect_width)
+    {
+        free(rect_info);
+        errors(3);
     }
 
     printf("\n");

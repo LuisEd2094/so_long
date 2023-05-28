@@ -14,7 +14,11 @@ test(){
     exit_status=$?
     echo "Exit status: $exit_status"
 
-    valgrind --leak-check=full --show-leak-kinds=all ./so_long maps/InvalidMap_Size.ber
+    valgrind --leak-check=full ./so_long maps/InvalidMap_Size.ber
+    exit_status=$?
+    echo "Exit status: $exit_status"
+    
+    valgrind --leak-check=full ./so_long maps/InvalidMap_Square.ber
     exit_status=$?
     echo "Exit status: $exit_status"
 }
