@@ -13,5 +13,7 @@ void errors(int val)
         perror(NULL);
     else if (val == 3)
         ft_printf("Invalid map. Please provide a rectangular map\n");
+    else if (val == 4)
+        ft_printf("Invalid map file extension, please provide a .ber file\n");
     exit(EXIT_FAILURE);
 } 

@@ -3,6 +3,7 @@
 #include <errno.h>
 #include "so_long.h"
 #include "get_next_line.h"
+#include "libft.h"
 #include <stdio.h>
 
 
@@ -96,13 +97,23 @@ void    parse_file(int fd)
     free(rect_info);
 }
 
+void    check_file_type(char *argv)
+{
+    size_t i;
+
+    i = ft_strlen(argv);
+    if (argv[i - 1] != 'r' || argv[i - 2] != 'e' || argv[i - 3] != 'b' || argv[i - 4] != '.')
+        errors(4);
+}
+
 
 void    parse_arguments(int argc, char **argv)
 {
     int fd;
 
-    if (argc == 1 || argc > 2)
+    if (argc != 2)
         errors(1);
+    check_file_type(argv[1]);
     fd = open(argv[1], O_RDONLY);
     if (fd < 0)
         errors(2);

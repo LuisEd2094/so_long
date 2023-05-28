@@ -2,7 +2,7 @@
 
 
 test(){
-    ./so_long 
+    valgrind --leak-check=full ./so_long 
     exit_status=$?
     echo "Exit status: $exit_status"
 
@@ -10,7 +10,11 @@ test(){
     exit_status=$?
     echo "Exit status: $exit_status"
 
-    ./so_long maps/no_per.txt
+    valgrind --leak-check=full ./so_long maps/no_per.ber
+    exit_status=$?
+    echo "Exit status: $exit_status"
+
+    valgrind --leak-check=full ./so_long maps/invalid_ext.txt
     exit_status=$?
     echo "Exit status: $exit_status"
 
