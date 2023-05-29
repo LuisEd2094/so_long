@@ -20,7 +20,7 @@ void     check_if_EOF(int *is_EOF)
 }
 
 
-int    check_character(char chr)
+int    check_if_valid_character(char chr)
 {
     char    *str;
     int     i;
@@ -52,6 +52,34 @@ void    free_if_invalid(char *line, int fd, t_rect *rect_info, int error)
     errors(error);
 }
 
+int check_char_with_current_infor(char chr, t_rect *rect_info)
+{
+    if (chr == '1' || chr == '0')
+        return (1);
+    else if(chr == 'P')
+    {
+        if (!rect_info->player)
+            rect_info->player = 1;
+        else
+            return (0);
+        return (1);
+    }
+    else if (chr == 'E')
+    {
+        if (!rect_info->exit)
+            rect_info->exit = 1;
+        else
+            return (0);
+        return (1);
+    }
+    else if (chr == 'C')
+    {
+        rect_info->collectables++;
+        return (1);
+    }
+    return (1);
+}
+
 void    check_line(int  *is_EOF, char *line, t_rect *rect_info, int fd)
 {
     int i = 0;
@@ -63,8 +91,10 @@ void    check_line(int  *is_EOF, char *line, t_rect *rect_info, int fd)
         while(line[i] && line[i] != '\n')
         {
 
-            if(!check_character(line[i]))
+            if(!check_if_valid_character(line[i]))
                 free_if_invalid(line, fd, rect_info, 5);
+            if(!check_char_with_current_infor(line[i], rect_info))
+                free_if_invalid(line, fd, rect_info, 7);
             if (!rect_info->found_width && line[i] != '1')
                 free_if_invalid(line, fd, rect_info, 6);
             else if((rect_info->current_line_width == 0 || (rect_info->current_line_width + 1) == rect_info->rect_width) && line[i] != '1' && rect_info->found_width)
@@ -109,6 +139,9 @@ t_rect *init_rect_info(void)
     new_rect->rect_width = 0;
     new_rect->found_width = 0;
     new_rect->valid_if_last_line = 1;
+    new_rect->player = 0;
+    new_rect->exit = 0;
+    new_rect->collectables = 0;
     return(new_rect);
 }
 
@@ -131,6 +164,8 @@ void    parse_file(int fd)
         free(rect_info);
         errors(3);
     }
+    if (!rect_info->player || !rect_info->exit || !rect_info->collectables)
+        free_if_invalid(line, fd, rect_info, 7);
 
     /// Ill probably want to save some information from the rect_info to the full program
     /// haven't decided yet 

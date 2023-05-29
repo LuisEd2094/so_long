@@ -7,7 +7,10 @@ typedef struct t_s_rect
     int rect_width;
     int current_line_width;
     int found_width;
-    int valid_if_last_line;    
+    int valid_if_last_line;
+    int player;
+    int exit;
+    int collectables;    
 }   t_rect;
 
 extern  int BUFFER_SIZE;
