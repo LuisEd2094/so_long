@@ -42,6 +42,16 @@ int    check_character(char chr)
 
 }
 
+void    free_if_invalid(char *line, int fd, t_rect *rect_info, int error)
+{
+    free(line);
+    BUFFER_SIZE = 0;
+    get_next_line(fd);
+    free(rect_info);
+    close(fd);
+    errors(error);
+}
+
 void    check_line(int  *is_EOF, char *line, t_rect *rect_info, int fd)
 {
     int i = 0;
@@ -52,17 +62,16 @@ void    check_line(int  *is_EOF, char *line, t_rect *rect_info, int fd)
     {
         while(line[i] && line[i] != '\n')
         {
+
             if(!check_character(line[i]))
-            {   
-                free(line);
-                BUFFER_SIZE = 0;
-                get_next_line(fd);
-                free(rect_info);
-                close(fd);
-                errors(5);
-            }
+                free_if_invalid(line, fd, rect_info, 5);
+            if (!rect_info->found_width && line[i] != '1')
+                free_if_invalid(line, fd, rect_info, 6);
+            else if((rect_info->current_line_width == 0 || (rect_info->current_line_width + 1) == rect_info->rect_width) && line[i] != '1' && rect_info->found_width)
+                free_if_invalid(line, fd, rect_info, 6);
             i++;
             rect_info->current_line_width++;
+
         }
         if (!rect_info->found_width && line[i] == '\n')
         {
@@ -74,15 +83,7 @@ void    check_line(int  *is_EOF, char *line, t_rect *rect_info, int fd)
         else if (line[i] == '\n' || !line[i])
         {
             if (rect_info->current_line_width != rect_info->rect_width)
-            {   
-                free(line);
-                BUFFER_SIZE = 0;
-                get_next_line(fd);
-                free(rect_info);
-                close(fd);
-                errors(3);
-            }
-
+                free_if_invalid(line, fd, rect_info, 3);  
             rect_info->current_line_width = 0;
             rect_info->height++;
         }

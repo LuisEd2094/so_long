@@ -8,15 +8,27 @@ test_cases=(
     "InvalidMap_Size.ber"
     "InvalidMap_Square.ber"
     "Invalid_char.ber"
+    "InvalidMap_Border_1.ber"
+    "InvalidMap_Border_2.ber"
+    "InvalidMap_Border_3.ber"
+    "InvalidMap_Border_4.ber"
+    "InvalidMap_Border_5.ber"
+    "InvalidMap_Border_6.ber"
 )
 
 expected_outputs=(
-    ""
+    $'Valid Map'
     $'Error'
     $'Error\nInvalid map file extension, please provide a .ber file'
     $'Error\nInvalid map. Please provide a rectangular map'
     $'Error\nInvalid map. Please provide a rectangular map'
     $'Error\nInvalid map, please provide a map with just 1 0 E P C characters'
+    $'Error\nInvalid map, please provide a map with a complete border made of obstacles'
+    $'Error\nInvalid map, please provide a map with a complete border made of obstacles'
+    $'Error\nInvalid map, please provide a map with a complete border made of obstacles'
+    $'Error\nInvalid map, please provide a map with a complete border made of obstacles'
+    $'Error\nInvalid map, please provide a map with a complete border made of obstacles'
+    $'Error\nInvalid map, please provide a map with a complete border made of obstacles'
 )
 
 
@@ -47,7 +59,7 @@ for i in "${!test_cases[@]}"; do
     #echo "Exit status: $exit_status"
 
     if [[ "$out_put" == "$expected_output" ]]; then
-        echo "Test case \"$test_case\" passed. "
+        echo "Test case \"$test_case\" passed." #\"$out_put\""
     else
         echo "Test case \"$test_case\" failed. Expected output: \"$expected_output\" Got \"$out_put\""
     fi

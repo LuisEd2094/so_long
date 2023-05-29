@@ -17,5 +17,7 @@ void errors(int val)
         ft_printf("Invalid map file extension, please provide a .ber file\n");
     else if (val == 5)
         ft_printf("Invalid map, please provide a map with just 1 0 E P C characters\n");
+    else if (val == 6)
+        ft_printf("Invalid map, please provide a map with a complete border made of obstacles\n");
     exit(EXIT_FAILURE);
 } 
