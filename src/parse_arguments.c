@@ -3,6 +3,7 @@
 #include <errno.h>
 #include "so_long.h"
 #include "get_next_line.h"
+#include "ft_printf.h"
 #include "libft.h"
 #include <stdio.h>
 
@@ -59,7 +60,12 @@ int check_char_with_current_infor(char chr, t_rect *rect_info)
     else if(chr == 'P')
     {
         if (!rect_info->player)
+        {
             rect_info->player = 1;
+            rect_info->player_pos->x = rect_info->height;
+            rect_info->player_pos->y = rect_info->current_line_width;
+        }
+
         else
             return (0);
         return (1);
@@ -103,7 +109,6 @@ void    check_line(int  *is_EOF, char *line, t_rect *rect_info, int fd)
                 rect_info->valid_if_last_line = 0;
             i++;
             rect_info->current_line_width++;
-
         }
         if (!rect_info->found_width && line[i] == '\n')
         {
@@ -142,6 +147,8 @@ t_rect *init_rect_info(void)
     new_rect->player = 0;
     new_rect->exit = 0;
     new_rect->collectables = 0;
+    new_rect->player_pos = (t_position *)malloc(sizeof(t_position));
+    new_rect->exit_pos = (t_position *)malloc(sizeof(t_position));
     return(new_rect);
 }
 
@@ -168,8 +175,11 @@ void    parse_file(int fd)
         free_if_invalid(line, fd, rect_info, 7);
 
     /// Ill probably want to save some information from the rect_info to the full program
-    /// haven't decided yet 
+    /// haven't decided yet
 
+    ft_printf("player x %d player y %d\n", rect_info->player_pos->x, rect_info->player_pos->y);
+    free(rect_info->player_pos);
+    free(rect_info->exit_pos);
     free(rect_info);
 }
 
