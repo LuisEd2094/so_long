@@ -1,5 +1,7 @@
 #!/bin/bash
-
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NC='\033[0m' # No Color
 
 test_cases=(
     "ValidMap.ber"
@@ -63,7 +65,7 @@ if [[ -n "$1" ]]; then
         expected_errors=( "${expected_outputs[$index]}" )
         expected_leaks=( "${expected_leaks[$index]}" )
     else
-        echo "Invalid test case number."
+        echo -e "Invalid test case number."
         exit 1
     fi
 fi
@@ -76,19 +78,19 @@ for i in "${!test_cases[@]}"; do
 
     valgrind_output=$(valgrind --leak-check=full ./so_long maps/"$test_case" 2>&1)
     #exit_status=$?
-    #echo "Exit status: $exit_status"
+    #echo -e "Exit status: $exit_status"
 
     if [[ "$out_put" == "$expected_output" ]]; then
-        echo "Test case \"$test_case\" passed." #\"$out_put\""
+        echo -e "Test case \"$test_case\" ${GREEN}passed${NC}." #\"$out_put\""
     else
-        echo "Test case \"$test_case\" failed. Expected output: \"$expected_output\" Got \"$out_put\""
+        echo -e "Test case \"$test_case\" ${RED}failed${NC}. Expected output: \"$expected_output\" Got \"$out_put\""
     fi
 
     if [[ "$valgrind_output" == *"$expected_leak"* ]]; then
-        echo "Test case \"$test_case\" - No leaks message passed."
+        echo -e "Test case \"$test_case\" - No leaks message ${GREEN}passed${NC}."
     else
-        echo "Test case \"$test_case\" - No leaks message failed. Expected: \"$expected_leak\""
+        echo -e "Test case \"$test_case\" - No leaks message ${RED}failed${NC}. Expected: \"$expected_leak\""
     fi
 
-    echo ""
+    echo -e ""
 done

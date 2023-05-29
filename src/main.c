@@ -36,7 +36,9 @@ int main(int argc, char **argv)
     while (current != NULL)
     {
         t_position *pos = (t_position *)(current->content);
-        printf("(%d, %d)\n", pos->x, pos->y);
+       // printf("(%d, %d)\n", pos->x, pos->y);
+       if (pos)
+            break;
         current = current->next;
     }
 

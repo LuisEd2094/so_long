@@ -16,7 +16,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}",
-            "args": ["${workspaceFolder}/maps/ValidMap.ber"],
+            "args": ["${workspaceFolder}/maps/InvalidMap_Square.ber"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
