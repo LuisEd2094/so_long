@@ -9,6 +9,11 @@ typedef struct t_s_position
     int y;
 } t_position;
 
+typedef struct t_s_pos_list
+{
+    t_list *head;
+}   t_pos_list;
+
 typedef struct t_s_rect
 {
     int height;
@@ -20,13 +25,12 @@ typedef struct t_s_rect
     t_position *player_pos;
     int exit;
     t_position *exit_pos;
-    int collectables;    
+    int collectables;
+    t_pos_list *collectables_pos;  
+    t_pos_list *obstacles_pos;  
 }   t_rect;
 
-typedef struct t_s_pos_list
-{
-    t_list *head;
-}   t_pos_list;
+
 
 extern  int BUFFER_SIZE;
 void	errors(int val);
@@ -37,5 +41,6 @@ void    free_if_invalid_line(char *line, int fd, t_rect *rect_info, int error);
 int     check_if_valid_character(char chr);
 void    check_if_EOF(int *is_EOF);
 void    set_position(int *value, t_position *position, t_rect *rect_info);
+void    free_rect(t_rect *rect_info);
 
 #endif

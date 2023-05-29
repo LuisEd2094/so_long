@@ -17,5 +17,9 @@ t_rect *init_rect_info(void)
     new_rect->collectables = 0;
     new_rect->player_pos = (t_position *)malloc(sizeof(t_position));
     new_rect->exit_pos = (t_position *)malloc(sizeof(t_position));
+    new_rect->collectables_pos = (t_pos_list *)malloc(sizeof(t_pos_list));
+    new_rect->collectables_pos->head = NULL;
+    new_rect->obstacles_pos = (t_pos_list *)malloc(sizeof(t_pos_list));
+    new_rect->obstacles_pos->head = NULL; 
     return(new_rect);
 }

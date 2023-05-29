@@ -7,13 +7,33 @@
 #include "libft.h"
 #include <stdio.h>
 
-
-
-
-int check_char_with_current_infor(char chr, t_rect *rect_info)
+int add_pos_to_list(t_pos_list *list, int x, int y)
 {
-    if (chr == '1' || chr == '0')
+    t_position  *new_pos;
+    t_list      *node;
+
+    new_pos = NULL;
+    node = NULL;
+    new_pos = (t_position *)malloc(sizeof(t_position));
+    new_pos->x = x;
+    new_pos->y = y;
+    node = ft_lstnew(new_pos);
+    ///////NEED TO CHECK NULLS AND RETURNS
+
+    ft_lstadd_front(&(list)->head, node);
+    return (1);
+}
+
+int check_and_save_char(char chr, t_rect *rect_info)
+{
+    if (chr == '0')
         return (1);
+    else if (chr == '1' && rect_info->height > 0 && rect_info->current_line_width > 0 && rect_info->current_line_width < rect_info->rect_width - 1)
+    {
+        if(add_pos_to_list(rect_info->obstacles_pos, rect_info->current_line_width, rect_info->height))
+            return (1);
+        return (0);
+    }
     else if(chr == 'P')
     {
         if (!rect_info->player)
@@ -33,6 +53,8 @@ int check_char_with_current_infor(char chr, t_rect *rect_info)
     else if (chr == 'C')
     {
         rect_info->collectables++;
+        if(add_pos_to_list(rect_info->collectables_pos, rect_info->current_line_width, rect_info->height))
+            return (1);
         return (1);
     }
     return (1);
@@ -48,10 +70,9 @@ void    check_line(int  *is_EOF, char *line, t_rect *rect_info, int fd)
     {
         while(line[i] && line[i] != '\n')
         {
-
             if(!check_if_valid_character(line[i]))
                 free_if_invalid_line(line, fd, rect_info, 5);
-            if(!check_char_with_current_infor(line[i], rect_info))
+            if(!check_and_save_char(line[i], rect_info))
                 free_if_invalid_line(line, fd, rect_info, 7);
             if (!rect_info->found_width && line[i] != '1')
                 free_if_invalid_line(line, fd, rect_info, 6);
@@ -79,8 +100,18 @@ void    check_line(int  *is_EOF, char *line, t_rect *rect_info, int fd)
                 free_if_invalid_line(line, fd, rect_info, 6);
             rect_info->current_line_width = 0;
             rect_info->height++;
-        }
-            
+        }  
+    }
+}
+
+void	print_list(t_pos_list *pos_list)
+{
+    t_list *current = pos_list->head;
+    while (current != NULL)
+    {
+        t_position *pos = (t_position *)(current->content);
+        printf("(%d, %d)\n", pos->x, pos->y);
+        current = current->next;
     }
 }
 
@@ -100,9 +131,7 @@ void    parse_file(int fd)
     }
     if (rect_info->height == rect_info->rect_width)
     {
-        free(rect_info->player_pos);
-        free(rect_info->exit_pos);
-        free(rect_info);
+        free_rect(rect_info);
         errors(3);
     }
     if (!rect_info->player || !rect_info->exit || !rect_info->collectables)
@@ -113,15 +142,12 @@ void    parse_file(int fd)
 
     //ft_printf("Player found %d player x %d player y %d\n", rect_info->player, rect_info->player_pos->x, rect_info->player_pos->y);
     //ft_printf("Exit found %d Exit x %d Exit y %d\n", rect_info->exit, rect_info->exit_pos->x, rect_info->exit_pos->y);
-
     
-    free(rect_info->player_pos);
-    free(rect_info->exit_pos);
-    free(rect_info);
+    
+    //print_list(rect_info->obstacles_pos);
+
+    free_rect(rect_info);
 }
-
-
-
 
 void    parse_arguments(int argc, char **argv)
 {

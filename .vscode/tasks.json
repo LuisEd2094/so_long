@@ -9,7 +9,7 @@
                 "-g",
                 "-I../include/",
                 "-I../libft/includes",
-                "${workspaceFolder}/src/errors.c", "${workspaceFolder}/src/main.c", "${workspaceFolder}/src/parse_arguments.c ",
+                "${workspaceFolder}/src/*.c",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",
                 "-L${workspaceFolder}/libft",
