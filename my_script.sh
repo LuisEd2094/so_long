@@ -14,21 +14,41 @@ test_cases=(
     "InvalidMap_Border_4.ber"
     "InvalidMap_Border_5.ber"
     "InvalidMap_Border_6.ber"
+    "Invalid_path_1.ber"
+    "Invalid_path_2.ber"
+    "Invalid_path_3.ber"
+    "Invalid_path_4.ber"
+    "Invalid_path_5.ber"
+    "Invalid_no_collec.ber"
+    "Invalid_no_exit.ber"
+    "Invalid_no_player.ber"
+    "Invalid_double_player.ber"
+    "Invalid_double_exit.ber" 
 )
 
 expected_outputs=(
     $'Valid Map'
     $'Error'
-    $'Error\nInvalid map file extension, please provide a .ber file'
-    $'Error\nInvalid map. Please provide a rectangular map'
-    $'Error\nInvalid map. Please provide a rectangular map'
-    $'Error\nInvalid map, please provide a map with just 1 0 E P C characters'
-    $'Error\nInvalid map, please provide a map with a complete border made of obstacles'
-    $'Error\nInvalid map, please provide a map with a complete border made of obstacles'
-    $'Error\nInvalid map, please provide a map with a complete border made of obstacles'
-    $'Error\nInvalid map, please provide a map with a complete border made of obstacles'
-    $'Error\nInvalid map, please provide a map with a complete border made of obstacles'
-    $'Error\nInvalid map, please provide a map with a complete border made of obstacles'
+    $'Error\nPlease provide a .ber file'
+    $'Error\nPlease provide a rectangular map'
+    $'Error\nPlease provide a rectangular map'
+    $'Error\nProvide a map with just 1 0 E P C characters'
+    $'Error\nProvide a map with a complete border made of obstacles'
+    $'Error\nProvide a map with a complete border made of obstacles'
+    $'Error\nProvide a map with a complete border made of obstacles'
+    $'Error\nProvide a map with a complete border made of obstacles'
+    $'Error\nProvide a map with a complete border made of obstacles'
+    $'Error\nProvide a map with a complete border made of obstacles'
+    $'Error\nCurrent map does not have a valid path'
+    $'Error\nCurrent map does not have a valid path'
+    $'Error\nCurrent map does not have a valid path'
+    $'Error\nCurrent map does not have a valid path'
+    $'Error\nCurrent map does not have a valid path'
+    $'Error\nMust have at least 1 collectable and 1 player and 1 exit'
+    $'Error\nMust have at least 1 collectable and 1 player and 1 exit'
+    $'Error\nMust have at least 1 collectable and 1 player and 1 exit'
+    $'Error\nMust have at least 1 collectable and 1 player and 1 exit'
+    $'Error\nMust have at least 1 collectable and 1 player and 1 exit'
 )
 
 

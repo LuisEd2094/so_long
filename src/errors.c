@@ -12,12 +12,16 @@ void errors(int val)
     else if (val == 2)
         perror(NULL);
     else if (val == 3)
-        ft_printf("Invalid map. Please provide a rectangular map\n");
+        ft_printf("Please provide a rectangular map\n");
     else if (val == 4)
-        ft_printf("Invalid map file extension, please provide a .ber file\n");
+        ft_printf("Please provide a .ber file\n");
     else if (val == 5)
-        ft_printf("Invalid map, please provide a map with just 1 0 E P C characters\n");
+        ft_printf("Provide a map with just 1 0 E P C characters\n");
     else if (val == 6)
-        ft_printf("Invalid map, please provide a map with a complete border made of obstacles\n");
+        ft_printf("Provide a map with a complete border made of obstacles\n");
+    else if (val == 7)
+        ft_printf("Must have at least 1 collectable and 1 player and 1 exit\n");
+    else if (val == 8)
+        ft_printf("Current map does not have a valid path\n");
     exit(EXIT_FAILURE);
 } 
