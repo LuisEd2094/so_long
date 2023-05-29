@@ -27,7 +27,7 @@ LIGHT_GREEN = \033[1;92m
 
 ###
 
-SRC			=	errors.c main.c parse_arguments.c
+SRC			=	errors.c main.c parse_arguments.c parse_aux.c aux.c
 
 
 OBJS        =	$(addprefix $(OBJS_PATH),$(SRC:.c=.o))

@@ -31,5 +31,10 @@ typedef struct t_s_pos_list
 extern  int BUFFER_SIZE;
 void	errors(int val);
 void    parse_arguments(int argc, char **argv);
+void    check_file_type(char *argv);
+t_rect  *init_rect_info(void);
+void    free_if_invalid_line(char *line, int fd, t_rect *rect_info, int error);
+int    check_if_valid_character(char chr);
+void     check_if_EOF(int *is_EOF);
 
 #endif

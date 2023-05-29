@@ -9,7 +9,7 @@ int main(int argc, char **argv)
 {
     parse_arguments(argc, argv);
     ft_printf("Valid Map\n");
-
+/*
     t_position *pos1 = (t_position *)malloc(sizeof(t_position));
     pos1->x = 1;
     pos1->y = 2;
@@ -49,6 +49,6 @@ int main(int argc, char **argv)
 
 
     //ft_printf("%i\n", (* list)->head->content->x);
-
+*/
     exit(EXIT_SUCCESS);
 }

@@ -7,54 +7,6 @@
 #include "libft.h"
 #include <stdio.h>
 
-
-
-void     check_if_EOF(int *is_EOF)
-{
-    //line = NULL; ERRORS AND LINE COMMENT AS REMINDER ON HOW TO TEST ERRORS
-    //errno = ENOMEM;
-    //errno = EIO;
-    if (errno == 0)
-        *is_EOF = 1;
-    else
-        errors(2);
-}
-
-
-int    check_if_valid_character(char chr)
-{
-    char    *str;
-    int     i;
-    int     valid;
-
-    str = "01CEP";
-    i = 0;
-    valid = 0;
-    while(str[i])
-    {
-        if (str[i] == chr)
-        {
-            valid = 1;
-            break;
-        }
-        i++;
-    }
-    return (valid);
-
-}
-
-void    free_if_invalid_line(char *line, int fd, t_rect *rect_info, int error)
-{
-    free(line);
-    BUFFER_SIZE = 0;
-    get_next_line(fd);
-    free(rect_info->player_pos);
-    free(rect_info->exit_pos);
-    free(rect_info);
-    close(fd);
-    errors(error);
-}
-
 int check_char_with_current_infor(char chr, t_rect *rect_info)
 {
     if (chr == '1' || chr == '0')
@@ -67,7 +19,6 @@ int check_char_with_current_infor(char chr, t_rect *rect_info)
             rect_info->player_pos->x = rect_info->height;
             rect_info->player_pos->y = rect_info->current_line_width;
         }
-
         else
             return (0);
         return (1);
@@ -134,26 +85,6 @@ void    check_line(int  *is_EOF, char *line, t_rect *rect_info, int fd)
     }
 }
 
-t_rect *init_rect_info(void)
-{
-    t_rect *new_rect;
-
-    new_rect = (t_rect *)malloc(sizeof(t_rect));
-    if (!new_rect)
-        errors(2);
-    new_rect->current_line_width = 0;
-    new_rect->height = 0;
-    new_rect->rect_width = 0;
-    new_rect->found_width = 0;
-    new_rect->valid_if_last_line = 1;
-    new_rect->player = 0;
-    new_rect->exit = 0;
-    new_rect->collectables = 0;
-    new_rect->player_pos = (t_position *)malloc(sizeof(t_position));
-    new_rect->exit_pos = (t_position *)malloc(sizeof(t_position));
-    return(new_rect);
-}
-
 void    parse_file(int fd)
 {
     char *line;
@@ -187,14 +118,7 @@ void    parse_file(int fd)
     free(rect_info);
 }
 
-void    check_file_type(char *argv)
-{
-    size_t i;
 
-    i = ft_strlen(argv);
-    if (argv[i - 1] != 'r' || argv[i - 2] != 'e' || argv[i - 3] != 'b' || argv[i - 4] != '.')
-        errors(4);
-}
 
 
 void    parse_arguments(int argc, char **argv)
