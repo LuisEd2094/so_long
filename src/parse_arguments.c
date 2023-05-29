@@ -69,6 +69,8 @@ void    check_line(int  *is_EOF, char *line, t_rect *rect_info, int fd)
                 free_if_invalid(line, fd, rect_info, 6);
             else if((rect_info->current_line_width == 0 || (rect_info->current_line_width + 1) == rect_info->rect_width) && line[i] != '1' && rect_info->found_width)
                 free_if_invalid(line, fd, rect_info, 6);
+            if (rect_info->valid_if_last_line && line[i] != '1')
+                rect_info->valid_if_last_line = 0;
             i++;
             rect_info->current_line_width++;
 
@@ -83,7 +85,11 @@ void    check_line(int  *is_EOF, char *line, t_rect *rect_info, int fd)
         else if (line[i] == '\n' || !line[i])
         {
             if (rect_info->current_line_width != rect_info->rect_width)
-                free_if_invalid(line, fd, rect_info, 3);  
+                free_if_invalid(line, fd, rect_info, 3);
+            if (line[i] == '\n') 
+                rect_info->valid_if_last_line = 1;
+            else if (!rect_info->valid_if_last_line)
+                free_if_invalid(line, fd, rect_info, 6);
             rect_info->current_line_width = 0;
             rect_info->height++;
         }
@@ -102,6 +108,7 @@ t_rect *init_rect_info(void)
     new_rect->height = 0;
     new_rect->rect_width = 0;
     new_rect->found_width = 0;
+    new_rect->valid_if_last_line = 1;
     return(new_rect);
 }
 

@@ -6,7 +6,8 @@ typedef struct t_s_rect
     int height;
     int rect_width;
     int current_line_width;
-    int found_width;    
+    int found_width;
+    int valid_if_last_line;    
 }   t_rect;
 
 extern  int BUFFER_SIZE;
