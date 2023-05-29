@@ -2,6 +2,14 @@
 #include "get_next_line.h"
 #include <errno.h>
 
+
+void    set_position(int *value, t_position *position, t_rect *rect_info)
+{
+    *value += 1;
+    position->y = rect_info->height;
+    position->x = rect_info->current_line_width;
+}
+
 void    check_file_type(char *argv)
 {
     size_t i;

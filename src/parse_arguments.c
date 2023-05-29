@@ -7,6 +7,9 @@
 #include "libft.h"
 #include <stdio.h>
 
+
+
+
 int check_char_with_current_infor(char chr, t_rect *rect_info)
 {
     if (chr == '1' || chr == '0')
@@ -14,11 +17,7 @@ int check_char_with_current_infor(char chr, t_rect *rect_info)
     else if(chr == 'P')
     {
         if (!rect_info->player)
-        {
-            rect_info->player = 1;
-            rect_info->player_pos->x = rect_info->height;
-            rect_info->player_pos->y = rect_info->current_line_width;
-        }
+            set_position(&(rect_info->player),rect_info->player_pos, rect_info);
         else
             return (0);
         return (1);
@@ -26,7 +25,7 @@ int check_char_with_current_infor(char chr, t_rect *rect_info)
     else if (chr == 'E')
     {
         if (!rect_info->exit)
-            rect_info->exit = 1;
+            set_position(&(rect_info->exit),rect_info->exit_pos, rect_info);
         else
             return (0);
         return (1);
@@ -112,7 +111,10 @@ void    parse_file(int fd)
     /// Ill probably want to save some information from the rect_info to the full program
     /// haven't decided yet
 
-    //ft_printf("player x %d player y %d\n", rect_info->player_pos->x, rect_info->player_pos->y);
+    //ft_printf("Player found %d player x %d player y %d\n", rect_info->player, rect_info->player_pos->x, rect_info->player_pos->y);
+    //ft_printf("Exit found %d Exit x %d Exit y %d\n", rect_info->exit, rect_info->exit_pos->x, rect_info->exit_pos->y);
+
+    
     free(rect_info->player_pos);
     free(rect_info->exit_pos);
     free(rect_info);
