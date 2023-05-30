@@ -10,6 +10,7 @@
                 "-I../include/",
                 "-I../libft/includes",
                 "${workspaceFolder}/src/*.c",
+                "${workspaceFolder}/libft/libft.a",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",
                 "-L${workspaceFolder}/libft",

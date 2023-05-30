@@ -115,6 +115,27 @@ void	print_list(t_pos_list *pos_list)
     }
 }
 
+void    get_internal_obst(t_rect *rect_info)
+{
+    t_list *current = rect_info->obstacles_pos->head;
+    t_list *temp = current->next;
+    t_position *pos = current->content;
+
+
+
+    while (pos->y == rect_info->height - 1)
+    {
+        free(pos);
+        free(current);
+        current =  temp;
+        temp = current->next;
+        pos = current->content;
+    }
+
+    rect_info->obstacles_pos->head = current;
+
+}
+
 void    parse_file(int fd)
 {
     char *line;
@@ -140,11 +161,21 @@ void    parse_file(int fd)
     /// Ill probably want to save some information from the rect_info to the full program
     /// haven't decided yet
 
-    //ft_printf("Player found %d player x %d player y %d\n", rect_info->player, rect_info->player_pos->x, rect_info->player_pos->y);
-    //ft_printf("Exit found %d Exit x %d Exit y %d\n", rect_info->exit, rect_info->exit_pos->x, rect_info->exit_pos->y);
+    ft_printf("Player found %d player x %d player y %d\n", rect_info->player, rect_info->player_pos->x, rect_info->player_pos->y);
+    ft_printf("Exit found %d Exit x %d Exit y %d\n", rect_info->exit, rect_info->exit_pos->x, rect_info->exit_pos->y);
     
+    print_list(rect_info->obstacles_pos);
+
+    get_internal_obst(rect_info);
+
+
     
-    //print_list(rect_info->obstacles_pos);
+
+    
+
+    ft_printf("Nueva list\n");
+    print_list(rect_info->obstacles_pos);
+
 
     free_rect(rect_info);
 }

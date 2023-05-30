@@ -5,20 +5,12 @@
 
 int BUFFER_SIZE = 1024;
 
-void exit_handler(void *mlx_ptr, void *mlx_window)
-{
-    mlx_destroy_window(mlx_ptr, mlx_window);
-    // Additional cleanup operations if needed
-}
-
 int main(int argc, char **argv)
 {
-
-
     parse_arguments(argc, argv);
     ft_printf("Valid Map\n");    
     
-    
+    /*
     void *mlx_ptr;
     void *mlx_window;
     void *image_ptr;
@@ -47,7 +39,7 @@ int main(int argc, char **argv)
 
     mlx_loop(mlx_ptr);
 
-    return 0;
+    return 0;*/
 
 /*
     t_position *pos1 = (t_position *)malloc(sizeof(t_position));
