@@ -5,33 +5,49 @@
 
 int BUFFER_SIZE = 1024;
 
+void exit_handler(void *mlx_ptr, void *mlx_window)
+{
+    mlx_destroy_window(mlx_ptr, mlx_window);
+    // Additional cleanup operations if needed
+}
+
 int main(int argc, char **argv)
 {
+
+
     parse_arguments(argc, argv);
-    ft_printf("Valid Map\n");
+    ft_printf("Valid Map\n");    
+    
+    
+    void *mlx_ptr;
+    void *mlx_window;
+    void *image_ptr;
 
+    int width = 640;
+    int height = 426;
 
-    void * mlx = mlx_init();
+    mlx_ptr = mlx_init();
+    if (!mlx_ptr)
+        return -1;
 
-    ft_printf("%p\n", mlx);
-    void *mlx_window = mlx_new_window(mlx, 600, 300, "test");
+    mlx_window = mlx_new_window(mlx_ptr, width, height, "Image Drawing");
 
-    long i = 1;
-
-    while(i)
+    // Create a new image
+    image_ptr = mlx_xpm_file_to_image(mlx_ptr, "sample_640×426.xpm", &width, &height);
+    if (!image_ptr)
     {
-        i++;
-
-        //ft_printf("HOLA\n");
-
-        if (i == 10000000000)
-        {
-            mlx_destroy_window(mlx, mlx_window);
-            ft_printf("DONE\n");
-            break;
-        }
-
+        mlx_destroy_window(mlx_ptr, mlx_window);
+        mlx_destroy_display(mlx_ptr);
+        printf("HOLA");
+        free(mlx_ptr);
+        return -1;
     }
+
+    mlx_put_image_to_window(mlx_ptr, mlx_window, image_ptr, 0, 0);
+
+    mlx_loop(mlx_ptr);
+
+    return 0;
 
 /*
     t_position *pos1 = (t_position *)malloc(sizeof(t_position));
