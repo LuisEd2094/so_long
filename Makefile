@@ -4,12 +4,12 @@ NAME        = 	so_long
 CFLAGS      = 	-Wall -Wextra  -Werror
 RM          = 	rm -f
 LIB_PATH	= 	./libft
-LDFLAGS		= 	-L$(LIB_PATH) -lft
+LDFLAGS		= 	-L$(LIB_PATH) -lft -L./minilibx/minilibx-linux -lmlx_Linux -lXext -lX11
 SRCS_PATH	= 	src/
 OBJS_PATH	= 	obj/
 DEPS_PATH	=	deps/
 SRC         =	main.c errors.c parse_arguments.c
-INCS        =	-I./include/ -I./libft/includes
+INCS        =	-I./include/ -I./libft/includes -I./minilibx/minilibx-linux
 
 
 #Colors
@@ -58,7 +58,7 @@ make_lib:
 	@$(MAKE) -s -C $(LIB_PATH)
 
 $(NAME): $(OBJS) $(LIB_PATH)/libft.a
-	@$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
+	@$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS) 
 	@echo "$(GREEN)So Long compiled!$(DEF_COLOR)"
 	
 

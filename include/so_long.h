@@ -1,6 +1,7 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 # include "libft.h"
+# include "mlx.h"
 
 
 typedef struct t_s_position

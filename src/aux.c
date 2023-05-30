@@ -1,4 +1,4 @@
-#include "so_long.h"
+    #include "so_long.h"
 
 t_rect *init_rect_info(void)
 {

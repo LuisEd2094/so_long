@@ -9,6 +9,30 @@ int main(int argc, char **argv)
 {
     parse_arguments(argc, argv);
     ft_printf("Valid Map\n");
+
+
+    void * mlx = mlx_init();
+
+    ft_printf("%p\n", mlx);
+    void *mlx_window = mlx_new_window(mlx, 600, 300, "test");
+
+    long i = 1;
+
+    while(i)
+    {
+        i++;
+
+        //ft_printf("HOLA\n");
+
+        if (i == 10000000000)
+        {
+            mlx_destroy_window(mlx, mlx_window);
+            ft_printf("DONE\n");
+            break;
+        }
+
+    }
+
 /*
     t_position *pos1 = (t_position *)malloc(sizeof(t_position));
     pos1->x = 1;
