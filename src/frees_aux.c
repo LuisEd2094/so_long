@@ -2,26 +2,26 @@
 #include "get_next_line.h"
 
 
-void free_rect(t_rect *rect_info)
+void free_rect(t_prg *prg)
 {
-    free(rect_info->player_pos);
-    free(rect_info->exit_pos);
-    if (rect_info->collectables_pos->head)
-        ft_lstclear(&(rect_info->collectables_pos->head), &free);
-    free(rect_info->collectables_pos);
-    if (rect_info->obstacles_pos->head)
-        ft_lstclear(&(rect_info->obstacles_pos->head), &free);
-    free(rect_info->obstacles_pos);
-    free(rect_info);
+    free(prg->player_pos);
+    free(prg->exit_pos);
+    if (prg->collectables_pos->head)
+        ft_lstclear(&(prg->collectables_pos->head), &free);
+    free(prg->collectables_pos);
+    if (prg->obstacles_pos->head)
+        ft_lstclear(&(prg->obstacles_pos->head), &free);
+    free(prg->obstacles_pos);
+    free(prg);
 }
 
 
-void    free_if_invalid_line(char *line, int fd, t_rect *rect_info, int error)
+void    free_if_invalid_line(char *line, int fd, t_prg *prg, int error)
 {
     free(line);
     BUFFER_SIZE = 0;
     get_next_line(fd);
-    free_rect(rect_info);
+    free_rect(prg);
     close(fd);
     errors(error);
 }

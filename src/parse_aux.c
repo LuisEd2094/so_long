@@ -3,11 +3,11 @@
 #include <errno.h>
 
 
-void    set_position(int *value, t_position *position, t_rect *rect_info)
+void    set_position(int *value, t_position *position, t_prg *prg)
 {
     *value += 1;
-    position->y = rect_info->height;
-    position->x = rect_info->current_line_width;
+    position->y = prg->height;
+    position->x = prg->current_line_width;
 }
 
 void    check_file_type(char *argv)

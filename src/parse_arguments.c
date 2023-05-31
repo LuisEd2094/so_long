@@ -24,43 +24,43 @@ int add_pos_to_list(t_pos_list *list, int x, int y)
     return (1);
 }
 
-int check_and_save_char(char chr, t_rect *rect_info)
+int check_and_save_char(char chr, t_prg *prg)
 {
     if (chr == '0')
         return (1);
-    else if (chr == '1' && rect_info->height > 0 && rect_info->current_line_width > 0 && rect_info->current_line_width < rect_info->rect_width - 1)
+    else if (chr == '1' && prg->height > 0 && prg->current_line_width > 0 && prg->current_line_width < prg->width - 1)
     {
-        if(add_pos_to_list(rect_info->obstacles_pos, rect_info->current_line_width, rect_info->height))
+        if(add_pos_to_list(prg->obstacles_pos, prg->current_line_width, prg->height))
             return (1);
         return (0);
     }
     else if(chr == 'P')
     {
-        if (!rect_info->player)
-            set_position(&(rect_info->player),rect_info->player_pos, rect_info);
+        if (!prg->player)
+            set_position(&(prg->player),prg->player_pos, prg);
         else
             return (0);
         return (1);
     }
     else if (chr == 'E')
     {
-        if (!rect_info->exit)
-            set_position(&(rect_info->exit),rect_info->exit_pos, rect_info);
+        if (!prg->exit)
+            set_position(&(prg->exit),prg->exit_pos, prg);
         else
             return (0);
         return (1);
     }
     else if (chr == 'C')
     {
-        rect_info->collectables++;
-        if(add_pos_to_list(rect_info->collectables_pos, rect_info->current_line_width, rect_info->height))
+        prg->collectables++;
+        if(add_pos_to_list(prg->collectables_pos, prg->current_line_width, prg->height))
             return (1);
         return (1);
     }
     return (1);
 }
 
-void    check_line(int  *is_EOF, char *line, t_rect *rect_info, int fd)
+void    check_line(int  *is_EOF, char *line, t_prg *prg, int fd)
 {
     int i = 0;
 
@@ -71,35 +71,35 @@ void    check_line(int  *is_EOF, char *line, t_rect *rect_info, int fd)
         while(line[i] && line[i] != '\n')
         {
             if(!check_if_valid_character(line[i]))
-                free_if_invalid_line(line, fd, rect_info, 5);
-            if(!check_and_save_char(line[i], rect_info))
-                free_if_invalid_line(line, fd, rect_info, 7);
-            if (!rect_info->found_width && line[i] != '1')
-                free_if_invalid_line(line, fd, rect_info, 6);
-            else if((rect_info->current_line_width == 0 || (rect_info->current_line_width + 1) == rect_info->rect_width) && line[i] != '1' && rect_info->found_width)
-                free_if_invalid_line(line, fd, rect_info, 6);
-            if (rect_info->valid_if_last_line && line[i] != '1')
-                rect_info->valid_if_last_line = 0;
+                free_if_invalid_line(line, fd, prg, 5);
+            if(!check_and_save_char(line[i], prg))
+                free_if_invalid_line(line, fd, prg, 7);
+            if (!prg->found_width && line[i] != '1')
+                free_if_invalid_line(line, fd, prg, 6);
+            else if((prg->current_line_width == 0 || (prg->current_line_width + 1) == prg->width) && line[i] != '1' && prg->found_width)
+                free_if_invalid_line(line, fd, prg, 6);
+            if (prg->valid_if_last_line && line[i] != '1')
+                prg->valid_if_last_line = 0;
             i++;
-            rect_info->current_line_width++;
+            prg->current_line_width++;
         }
-        if (!rect_info->found_width && line[i] == '\n')
+        if (!prg->found_width && line[i] == '\n')
         {
-            rect_info->rect_width = rect_info->current_line_width;
-            rect_info->found_width = 1;
-            rect_info->current_line_width = 0;
-            rect_info->height++;
+            prg->width = prg->current_line_width;
+            prg->found_width = 1;
+            prg->current_line_width = 0;
+            prg->height++;
         }
         else if (line[i] == '\n' || !line[i])
         {
-            if (rect_info->current_line_width != rect_info->rect_width)
-                free_if_invalid_line(line, fd, rect_info, 3);
+            if (prg->current_line_width != prg->width)
+                free_if_invalid_line(line, fd, prg, 3);
             if (line[i] == '\n') 
-                rect_info->valid_if_last_line = 1;
-            else if (!rect_info->valid_if_last_line)
-                free_if_invalid_line(line, fd, rect_info, 6);
-            rect_info->current_line_width = 0;
-            rect_info->height++;
+                prg->valid_if_last_line = 1;
+            else if (!prg->valid_if_last_line)
+                free_if_invalid_line(line, fd, prg, 6);
+            prg->current_line_width = 0;
+            prg->height++;
         }  
     }
 }
@@ -115,15 +115,15 @@ void	print_list(t_pos_list *pos_list)
     }
 }
 
-void    get_internal_obst(t_rect *rect_info)
+void    get_internal_obst(t_prg *prg)
 {
-    t_list *current = rect_info->obstacles_pos->head;
+    t_list *current = prg->obstacles_pos->head;
     t_list *temp = current->next;
     t_position *pos = current->content;
 
 
 
-    while (pos->y == rect_info->height - 1)
+    while (pos->y == prg->height - 1)
     {
         free(pos);
         free(current);
@@ -132,7 +132,7 @@ void    get_internal_obst(t_rect *rect_info)
         pos = current->content;
     }
 
-    rect_info->obstacles_pos->head = current;
+    prg->obstacles_pos->head = current;
 
 }
 
@@ -140,33 +140,33 @@ void    parse_file(int fd)
 {
     char *line;
     int is_EOF;
-    t_rect *rect_info;
+    t_prg *prg;
 
-    rect_info = init_rect_info();
+    prg = init_prg_info();
     is_EOF = 0;
     while (!is_EOF)
     {
         line = get_next_line(fd);
-        check_line(&(is_EOF), line, rect_info, fd);
+        check_line(&(is_EOF), line, prg, fd);
         free(line);
     }
-    if (rect_info->height == rect_info->rect_width)
+    if (prg->height == prg->width)
     {
-        free_rect(rect_info);
+        free_rect(prg);
         errors(3);
     }
-    if (!rect_info->player || !rect_info->exit || !rect_info->collectables)
-        free_if_invalid_line(line, fd, rect_info, 7);
+    if (!prg->player || !prg->exit || !prg->collectables)
+        free_if_invalid_line(line, fd, prg, 7);
 
-    /// Ill probably want to save some information from the rect_info to the full program
+    /// Ill probably want to save some information from the prg to the full program
     /// haven't decided yet
 
-    ft_printf("Player found %d player x %d player y %d\n", rect_info->player, rect_info->player_pos->x, rect_info->player_pos->y);
-    ft_printf("Exit found %d Exit x %d Exit y %d\n", rect_info->exit, rect_info->exit_pos->x, rect_info->exit_pos->y);
+    ft_printf("Player found %d player x %d player y %d\n", prg->player, prg->player_pos->x, prg->player_pos->y);
+    ft_printf("Exit found %d Exit x %d Exit y %d\n", prg->exit, prg->exit_pos->x, prg->exit_pos->y);
     
-    print_list(rect_info->obstacles_pos);
+    print_list(prg->obstacles_pos);
 
-    get_internal_obst(rect_info);
+    get_internal_obst(prg);
 
 
     
@@ -174,10 +174,10 @@ void    parse_file(int fd)
     
 
     ft_printf("Nueva list\n");
-    print_list(rect_info->obstacles_pos);
+    print_list(prg->obstacles_pos);
 
 
-    free_rect(rect_info);
+    free_rect(prg);
 }
 
 void    parse_arguments(int argc, char **argv)
