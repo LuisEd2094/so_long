@@ -2,7 +2,7 @@
 #include "get_next_line.h"
 
 
-void free_rect(t_prg *prg)
+void free_prg(t_prg *prg)
 {
     free(prg->player_pos);
     free(prg->exit_pos);
@@ -21,7 +21,7 @@ void    free_if_invalid_line(char *line, int fd, t_prg *prg, int error)
     free(line);
     BUFFER_SIZE = 0;
     get_next_line(fd);
-    free_rect(prg);
+    free_prg(prg);
     close(fd);
     errors(error);
 }

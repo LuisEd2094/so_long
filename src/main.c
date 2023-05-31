@@ -7,7 +7,9 @@ int BUFFER_SIZE = 1024;
 
 int main(int argc, char **argv)
 {
-    parse_arguments(argc, argv);
+    t_prg *prg;
+
+    prg = parse_arguments(argc, argv);
     ft_printf("Valid Map\n");    
     
     /*
@@ -41,6 +43,8 @@ int main(int argc, char **argv)
 
     return 0;*/
 
+
+    free_prg(prg);
 /*
     t_position *pos1 = (t_position *)malloc(sizeof(t_position));
     pos1->x = 1;

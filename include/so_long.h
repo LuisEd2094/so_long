@@ -1,7 +1,7 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 # include "libft.h"
-//include "mlx.h"
+# include "mlx.h"
 
 
 typedef struct t_s_position
@@ -15,7 +15,7 @@ typedef struct t_s_pos_list
     t_list *head;
 }   t_pos_list;
 
-typedef struct t_s_rect
+typedef struct t_s_prg
 {
     int height;
     int width;
@@ -35,13 +35,13 @@ typedef struct t_s_rect
 
 extern  int BUFFER_SIZE;
 void	errors(int val);
-void    parse_arguments(int argc, char **argv);
+t_prg   *parse_arguments(int argc, char **argv);
 void    check_file_type(char *argv);
 t_prg  *init_prg_info(void);
 void    free_if_invalid_line(char *line, int fd, t_prg *prg, int error);
 int     check_if_valid_character(char chr);
 void    check_if_EOF(int *is_EOF);
 void    set_position(int *value, t_position *position, t_prg *prg);
-void    free_rect(t_prg *prg);
+void    free_prg(t_prg *prg);
 
 #endif

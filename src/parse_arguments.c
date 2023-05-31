@@ -136,7 +136,7 @@ void    get_internal_obst(t_prg *prg)
 
 }
 
-void    parse_file(int fd)
+t_prg *parse_file(int fd)
 {
     char *line;
     int is_EOF;
@@ -152,7 +152,7 @@ void    parse_file(int fd)
     }
     if (prg->height == prg->width)
     {
-        free_rect(prg);
+        free_prg(prg);
         errors(3);
     }
     if (!prg->player || !prg->exit || !prg->collectables)
@@ -161,26 +161,20 @@ void    parse_file(int fd)
     /// Ill probably want to save some information from the prg to the full program
     /// haven't decided yet
 
-    ft_printf("Player found %d player x %d player y %d\n", prg->player, prg->player_pos->x, prg->player_pos->y);
-    ft_printf("Exit found %d Exit x %d Exit y %d\n", prg->exit, prg->exit_pos->x, prg->exit_pos->y);
+    //ft_printf("Player found %d player x %d player y %d\n", prg->player, prg->player_pos->x, prg->player_pos->y);
+    //ft_printf("Exit found %d Exit x %d Exit y %d\n", prg->exit, prg->exit_pos->x, prg->exit_pos->y);
     
-    print_list(prg->obstacles_pos);
+    //print_list(prg->obstacles_pos);
 
     get_internal_obst(prg);
+    //ft_printf("Nueva list\n");
+   // print_list(prg->obstacles_pos);
+    close(fd);   
+    return (prg);
 
-
-    
-
-    
-
-    ft_printf("Nueva list\n");
-    print_list(prg->obstacles_pos);
-
-
-    free_rect(prg);
 }
 
-void    parse_arguments(int argc, char **argv)
+t_prg   *parse_arguments(int argc, char **argv)
 {
     int fd;
 
@@ -190,6 +184,6 @@ void    parse_arguments(int argc, char **argv)
     fd = open(argv[1], O_RDONLY);
     if (fd < 0)
         errors(2);
-    parse_file(fd);
-    close(fd);    
+    return (parse_file(fd));
+ 
 }
