@@ -35,7 +35,6 @@ int    check_if_valid_character(char chr)
     return (0);
 }
 
-
 void     check_if_EOF(int *is_EOF)
 {
     //line = NULL; ERRORS AND LINE COMMENT AS REMINDER ON HOW TO TEST ERRORS
@@ -45,4 +44,12 @@ void     check_if_EOF(int *is_EOF)
         *is_EOF = 1;
     else
         errors(2);
+}
+
+
+int    check_height_width(t_prg *prg)
+{
+    if (prg->height > prg->max_height || prg->width > prg->max_width)
+        return (0);
+    return (1);
 }

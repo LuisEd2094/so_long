@@ -60,15 +60,6 @@ int check_and_save_char(char chr, t_prg *prg)
     return (1);
 }
 
-
-int    check_height_width(t_prg *prg)
-{
-    if (prg->height > prg->max_height || prg->width > prg->max_width)
-        return (0);
-    return (1);
-}
-
-
 void    check_when_end_of_line(t_prg *prg, char *line, int i, int fd)
 {
     if (!prg->found_width && line[i] == '\n')
@@ -90,6 +81,27 @@ void    check_when_end_of_line(t_prg *prg, char *line, int i, int fd)
         prg->height++;
     }
 }
+
+int    check_while_line(char *line, int i, int fd, t_prg *prg)
+{
+    while(line[i] && line[i] != '\n')
+    {
+        if(!check_if_valid_character(line[i]))
+            free_if_invalid_line(line, fd, prg, 5);
+        if(!check_and_save_char(line[i], prg))
+            free_if_invalid_line(line, fd, prg, 7);
+        if (!prg->found_width && line[i] != '1')
+            free_if_invalid_line(line, fd, prg, 6);
+        else if((prg->current_line_width == 0 || \
+        (prg->current_line_width + 1) == prg->width) && line[i] != '1' && prg->found_width)
+            free_if_invalid_line(line, fd, prg, 6);
+        if (prg->valid_if_last_line && line[i] != '1')
+            prg->valid_if_last_line = 0;
+        i++;
+        prg->current_line_width++;
+    }
+    return (i);
+}
 void    check_line(int  *is_EOF, char *line, t_prg *prg, int fd)
 {
     int i = 0;
@@ -98,21 +110,7 @@ void    check_line(int  *is_EOF, char *line, t_prg *prg, int fd)
         check_if_EOF(is_EOF);
     else
     {
-        while(line[i] && line[i] != '\n')
-        {
-            if(!check_if_valid_character(line[i]))
-                free_if_invalid_line(line, fd, prg, 5);
-            if(!check_and_save_char(line[i], prg))
-                free_if_invalid_line(line, fd, prg, 7);
-            if (!prg->found_width && line[i] != '1')
-                free_if_invalid_line(line, fd, prg, 6);
-            else if((prg->current_line_width == 0 || (prg->current_line_width + 1) == prg->width) && line[i] != '1' && prg->found_width)
-                free_if_invalid_line(line, fd, prg, 6);
-            if (prg->valid_if_last_line && line[i] != '1')
-                prg->valid_if_last_line = 0;
-            i++;
-            prg->current_line_width++;
-        }
+        i = check_while_line(line, i, fd, prg);
         check_when_end_of_line(prg, line, i, fd);
         if (!check_height_width(prg))
             free_if_invalid_line(line, fd, prg, 9);

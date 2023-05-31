@@ -13,6 +13,21 @@ void free_prg(t_prg *prg)
         ft_lstclear(&(prg->obstacles_list->head), &free);
     free(prg->obstacles_list);
     free(prg->mlx);
+    int i = 0;
+
+    while (i < prg->max_width)
+    {
+        free(prg->collect_pos[i]);
+        i++;
+    }
+    free(prg->collect_pos);
+    i = 0;
+    while (i < prg->max_width)
+    {
+        free(prg->obst_pos[i]);
+        i++;
+    }
+    free(prg->obst_pos);
     free(prg);
 }
 

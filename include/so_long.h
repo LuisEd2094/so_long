@@ -63,6 +63,7 @@ int     check_if_valid_character(char chr);
 void    check_if_EOF(int *is_EOF);
 void    set_position(int *value, t_position *position, t_prg *prg);
 void    free_prg(t_prg *prg);
+int     check_height_width(t_prg *prg);
 
 
 /////// HELPERS FOR DEV ////
