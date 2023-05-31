@@ -10,7 +10,8 @@ int main(int argc, char **argv)
     t_prg *prg;
 
     prg = parse_arguments(argc, argv);
-    ft_printf("Valid Map\n");    
+    ft_printf("Valid Map\n");
+    //ft_printf("Height %i Width %i", prg->height, prg->width);    
     
     
 /*

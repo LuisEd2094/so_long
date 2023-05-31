@@ -25,7 +25,8 @@ test_cases=(
     "Invalid_no_exit.ber"
     "Invalid_no_player.ber"
     "Invalid_double_player.ber"
-    "Invalid_double_exit.ber" 
+    "Invalid_double_exit.ber"
+    "Bigger_map.ber"
 )
 
 expected_outputs=(
@@ -51,6 +52,7 @@ expected_outputs=(
     $'Error\nMust have at least 1 collectable and 1 player and 1 exit'
     $'Error\nMust have at least 1 collectable and 1 player and 1 exit'
     $'Error\nMust have at least 1 collectable and 1 player and 1 exit'
+    $'Error\nMax map size is 20 x 12'
 )
 
 

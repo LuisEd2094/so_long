@@ -31,7 +31,6 @@ SRC			=	errors.c main.c parse_arguments.c parse_aux.c init_prg.c \
 				frees_aux.c \
 				helpers_for_dev.c
 
-
 OBJS        =	$(addprefix $(OBJS_PATH),$(SRC:.c=.o))
 
 DEPS		=	$(addprefix $(DEPS_PATH),$(SRC:.c=.d))

@@ -61,13 +61,11 @@ int check_and_save_char(char chr, t_prg *prg)
 }
 
 
-void    check_height_width(t_prg *prg)
+int    check_height_width(t_prg *prg)
 {
     if (prg->height > prg->max_height || prg->width > prg->max_width)
-    {
-        free_prg(prg);
-        errors(9);
-    }
+        return (0);
+    return (1);
 }
 
 
@@ -116,7 +114,8 @@ void    check_line(int  *is_EOF, char *line, t_prg *prg, int fd)
             prg->current_line_width++;
         }
         check_when_end_of_line(prg, line, i, fd);
-        check_height_width(prg);  
+        if (!check_height_width(prg))
+            free_if_invalid_line(line, fd, prg, 9);
     }
 }
 void    get_internal_obst(t_prg *prg)
