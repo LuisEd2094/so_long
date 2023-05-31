@@ -23,5 +23,7 @@ void errors(int val)
         ft_printf("Must have at least 1 collectable and 1 player and 1 exit\n");
     else if (val == 8)
         ft_printf("Current map does not have a valid path\n");
+    else if (val == 9)
+        ft_printf("Max map size is 20 x 12\n");
     exit(EXIT_FAILURE);
 } 

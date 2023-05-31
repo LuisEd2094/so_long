@@ -16,7 +16,9 @@ int main(int argc, char **argv)
 
 
     int width = 1280;
-    int height = 720;
+    int height = 768;
+
+
 
     prg->mlx->ptr = mlx_init();
     if (!prg->mlx->ptr)
@@ -32,13 +34,15 @@ int main(int argc, char **argv)
     {
         mlx_destroy_window(prg->mlx->ptr, prg->mlx->window);
         mlx_destroy_display(prg->mlx->ptr);
-        printf("HOLA");
         free(prg->mlx->ptr);
         return -1;
     }
 
-    mlx_put_image_to_window(prg->mlx->ptr, prg->mlx->window, prg->mlx->player, 0, 0);
-    mlx_put_image_to_window(prg->mlx->ptr, prg->mlx->window, prg->mlx->exit, 64, 0);
+    mlx_put_image_to_window(prg->mlx->ptr, prg->mlx->window, prg->mlx->exit, 0, 0);
+    mlx_put_image_to_window(prg->mlx->ptr, prg->mlx->window, prg->mlx->exit, 0, 64);
+    mlx_put_image_to_window(prg->mlx->ptr, prg->mlx->window, prg->mlx->exit, 0, 128);
+    mlx_put_image_to_window(prg->mlx->ptr, prg->mlx->window, prg->mlx->exit, 0, 192);
+    mlx_put_image_to_window(prg->mlx->ptr, prg->mlx->window, prg->mlx->exit, 0, 256);
 
 
     mlx_loop(prg->mlx->ptr);

@@ -60,6 +60,15 @@ int check_and_save_char(char chr, t_prg *prg)
     return (1);
 }
 
+
+void    check_height_width(t_prg *prg)
+{
+    if (prg->height > prg->max_height || prg->width > prg->max_width)
+    {
+        free_prg(prg);
+        errors(9);
+    }
+}
 void    check_line(int  *is_EOF, char *line, t_prg *prg, int fd)
 {
     int i = 0;
@@ -100,7 +109,8 @@ void    check_line(int  *is_EOF, char *line, t_prg *prg, int fd)
                 free_if_invalid_line(line, fd, prg, 6);
             prg->current_line_width = 0;
             prg->height++;
-        }  
+        }
+        check_height_width(prg);  
     }
 }
 
@@ -120,8 +130,6 @@ void    get_internal_obst(t_prg *prg)
     t_list *current = prg->obstacles_pos->head;
     t_list *temp = current->next;
     t_position *pos = current->content;
-
-
 
     while (pos->y == prg->height - 1)
     {

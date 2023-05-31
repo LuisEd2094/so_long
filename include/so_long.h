@@ -38,6 +38,8 @@ typedef struct t_s_prg
     int player;
     int collectables;
     int exit;
+    int max_width;
+    int max_height;
     t_position *player_pos;
     t_position *exit_pos;
     t_pos_list *collectables_pos;  
