@@ -30,7 +30,7 @@ int check_and_save_char(char chr, t_prg *prg)
         return (1);
     else if (chr == '1' && prg->height > 0 && prg->current_line_width > 0 && prg->current_line_width < prg->width - 1)
     {
-        if(add_pos_to_list(prg->obstacles_pos, prg->current_line_width, prg->height))
+        if(add_pos_to_list(prg->obstacles_list, prg->current_line_width, prg->height))
             return (1);
         return (0);
     }
@@ -53,7 +53,7 @@ int check_and_save_char(char chr, t_prg *prg)
     else if (chr == 'C')
     {
         prg->collectables++;
-        if(add_pos_to_list(prg->collectables_pos, prg->current_line_width, prg->height))
+        if(add_pos_to_list(prg->collectables_list, prg->current_line_width, prg->height))
             return (1);
         return (1);
     }
@@ -120,7 +120,7 @@ void    check_line(int  *is_EOF, char *line, t_prg *prg, int fd)
 }
 void    get_internal_obst(t_prg *prg)
 {
-    t_list *current = prg->obstacles_pos->head;
+    t_list *current = prg->obstacles_list->head;
     t_list *temp = current->next;
     t_position *pos = current->content;
 
@@ -132,8 +132,14 @@ void    get_internal_obst(t_prg *prg)
         temp = current->next;
         pos = current->content;
     }
-
-    prg->obstacles_pos->head = current;
+    prg->obstacles_list->head = current;
+    while (current)
+    {
+        temp = current->next;
+        pos = current->content;
+        prg->obst_pos[pos->x][pos->y] = 1;
+        current = temp;
+    }
 
 }
 t_prg *parse_file(int fd)
@@ -164,11 +170,11 @@ t_prg *parse_file(int fd)
     //ft_printf("Player found %d player x %d player y %d\n", prg->player, prg->player_pos->x, prg->player_pos->y);
     //ft_printf("Exit found %d Exit x %d Exit y %d\n", prg->exit, prg->exit_pos->x, prg->exit_pos->y);
     
-    //print_list(prg->obstacles_pos);
+    //print_list(prg->obstacles_list);
 
     get_internal_obst(prg);
     //ft_printf("Nueva list\n");
-   // print_list(prg->obstacles_pos);
+   // print_list(prg->obstacles_list);
     close(fd);   
     return (prg);
 

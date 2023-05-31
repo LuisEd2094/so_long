@@ -28,6 +28,7 @@ typedef struct  t_s_mlx
 
 }   t_mlx;
 
+
 typedef struct t_s_prg
 {
     int height;
@@ -42,9 +43,11 @@ typedef struct t_s_prg
     int max_height;
     t_position *player_pos;
     t_position *exit_pos;
-    t_pos_list *collectables_pos;  
-    t_pos_list *obstacles_pos;
+    t_pos_list *collectables_list;  
+    t_pos_list *obstacles_list;
     t_mlx   *mlx;
+    int **obst_pos;
+    int **collect_pos;
 
 }   t_prg;
 

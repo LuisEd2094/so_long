@@ -6,12 +6,12 @@ void free_prg(t_prg *prg)
 {
     free(prg->player_pos);
     free(prg->exit_pos);
-    if (prg->collectables_pos->head)
-        ft_lstclear(&(prg->collectables_pos->head), &free);
-    free(prg->collectables_pos);
-    if (prg->obstacles_pos->head)
-        ft_lstclear(&(prg->obstacles_pos->head), &free);
-    free(prg->obstacles_pos);
+    if (prg->collectables_list->head)
+        ft_lstclear(&(prg->collectables_list->head), &free);
+    free(prg->collectables_list);
+    if (prg->obstacles_list->head)
+        ft_lstclear(&(prg->obstacles_list->head), &free);
+    free(prg->obstacles_list);
     free(prg->mlx);
     free(prg);
 }

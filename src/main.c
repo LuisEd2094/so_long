@@ -11,10 +11,13 @@ int main(int argc, char **argv)
 
     prg = parse_arguments(argc, argv);
     ft_printf("Valid Map\n");
-    //ft_printf("Height %i Width %i", prg->height, prg->width);    
+    //ft_printf("Height %i Width %i", prg->height, prg->width);
+    print_list(prg->obstacles_list);    
     
+
+
     
-/*
+
 
     int width = 1280;
     int height = 768;
@@ -45,10 +48,33 @@ int main(int argc, char **argv)
     mlx_put_image_to_window(prg->mlx->ptr, prg->mlx->window, prg->mlx->exit, 0, 192);
     mlx_put_image_to_window(prg->mlx->ptr, prg->mlx->window, prg->mlx->exit, 0, 256);
 
+    ft_printf("valid %i\n", prg->obst_pos[1][1]);
+
+    int i = 1;
+    int j = 1;
+
+    ft_printf("%i\n", prg->width);
+
+    while (i < prg->width)
+    {
+        j = 1;
+        while (j < prg->height)
+        {
+            if (prg->obst_pos[i][j])
+                mlx_put_image_to_window(prg->mlx->ptr, prg->mlx->window, prg->mlx->exit, i * 64, j * 64);
+            else
+                mlx_put_image_to_window(prg->mlx->ptr, prg->mlx->window, prg->mlx->player, i * 64, j * 64);
+            j++;
+            ft_printf("I value %i, J value %i\n", i, j);
+            ft_printf("%i COORDINATE\n", prg->obst_pos[i][j]);
+        }
+        i++;
+        ft_printf("HOLA\n");
+    }
 
     mlx_loop(prg->mlx->ptr);
 
-    return 0;*/
+    return 0;
 
 
     free_prg(prg);

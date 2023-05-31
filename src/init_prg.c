@@ -19,10 +19,23 @@ t_prg *init_prg_info(void)
     new_prg->max_height = 12;
     new_prg->player_pos = (t_position *)malloc(sizeof(t_position));
     new_prg->exit_pos = (t_position *)malloc(sizeof(t_position));
-    new_prg->collectables_pos = (t_pos_list *)malloc(sizeof(t_pos_list));
-    new_prg->collectables_pos->head = NULL;
-    new_prg->obstacles_pos = (t_pos_list *)malloc(sizeof(t_pos_list));
-    new_prg->obstacles_pos->head = NULL; 
+    new_prg->collectables_list = (t_pos_list *)malloc(sizeof(t_pos_list));
+    new_prg->collectables_list->head = NULL;
+    new_prg->obstacles_list = (t_pos_list *)malloc(sizeof(t_pos_list));
+    new_prg->obstacles_list->head = NULL; 
     new_prg->mlx =(t_mlx *)malloc(sizeof(t_mlx));
+    new_prg->obst_pos = (int **)malloc(sizeof(int *) *new_prg->max_width);
+    int i = 0;
+    while (i < new_prg->max_width)
+    {
+        new_prg->obst_pos[i++] = (int *)malloc(sizeof(int) *new_prg->max_height);
+    }
+
+    new_prg->collect_pos = (int **)malloc(sizeof(int *) *new_prg->max_width);
+    i = 0;
+    while (i < new_prg->max_width)
+    {
+        new_prg->collect_pos[i++] = (int *)malloc(sizeof(int) *new_prg->max_height);
+    }
     return(new_prg);
 }
