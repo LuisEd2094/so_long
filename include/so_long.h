@@ -61,4 +61,8 @@ void    check_if_EOF(int *is_EOF);
 void    set_position(int *value, t_position *position, t_prg *prg);
 void    free_prg(t_prg *prg);
 
+
+/////// HELPERS FOR DEV ////
+
+void	print_list(t_pos_list *pos_list);
 #endif

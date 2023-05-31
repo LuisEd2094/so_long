@@ -119,18 +119,6 @@ void    check_line(int  *is_EOF, char *line, t_prg *prg, int fd)
         check_height_width(prg);  
     }
 }
-
-void	print_list(t_pos_list *pos_list)
-{
-    t_list *current = pos_list->head;
-    while (current != NULL)
-    {
-        t_position *pos = (t_position *)(current->content);
-        printf("(%d, %d)\n", pos->x, pos->y);
-        current = current->next;
-    }
-}
-
 void    get_internal_obst(t_prg *prg)
 {
     t_list *current = prg->obstacles_pos->head;
@@ -149,7 +137,6 @@ void    get_internal_obst(t_prg *prg)
     prg->obstacles_pos->head = current;
 
 }
-
 t_prg *parse_file(int fd)
 {
     char *line;
