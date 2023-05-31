@@ -12,13 +12,13 @@ int main(int argc, char **argv)
     prg = parse_arguments(argc, argv);
     ft_printf("Valid Map\n");    
     
-    /*
+    
     void *mlx_ptr;
     void *mlx_window;
     void *image_ptr;
 
-    int width = 640;
-    int height = 426;
+    int width = 1280;
+    int height = 852;
 
     mlx_ptr = mlx_init();
     if (!mlx_ptr)
@@ -41,7 +41,7 @@ int main(int argc, char **argv)
 
     mlx_loop(mlx_ptr);
 
-    return 0;*/
+    return 0;
 
 
     free_prg(prg);
