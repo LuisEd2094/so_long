@@ -13,7 +13,7 @@ int main(int argc, char **argv)
     ft_printf("Valid Map\n");    
     
     
-
+/*
 
     int width = 1280;
     int height = 768;
@@ -47,7 +47,7 @@ int main(int argc, char **argv)
 
     mlx_loop(prg->mlx->ptr);
 
-    return 0;
+    return 0;*/
 
 
     free_prg(prg);

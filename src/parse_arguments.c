@@ -69,6 +69,29 @@ void    check_height_width(t_prg *prg)
         errors(9);
     }
 }
+
+
+void    check_when_end_of_line(t_prg *prg, char *line, int i, int fd)
+{
+    if (!prg->found_width && line[i] == '\n')
+    {
+        prg->width = prg->current_line_width;
+        prg->found_width = 1;
+        prg->current_line_width = 0;
+        prg->height++;
+    }
+    else if (line[i] == '\n' || !line[i])
+    {
+        if (prg->current_line_width != prg->width)
+            free_if_invalid_line(line, fd, prg, 3);
+        if (line[i] == '\n') 
+            prg->valid_if_last_line = 1;
+        else if (!prg->valid_if_last_line)
+            free_if_invalid_line(line, fd, prg, 6);
+        prg->current_line_width = 0;
+        prg->height++;
+    }
+}
 void    check_line(int  *is_EOF, char *line, t_prg *prg, int fd)
 {
     int i = 0;
@@ -92,24 +115,7 @@ void    check_line(int  *is_EOF, char *line, t_prg *prg, int fd)
             i++;
             prg->current_line_width++;
         }
-        if (!prg->found_width && line[i] == '\n')
-        {
-            prg->width = prg->current_line_width;
-            prg->found_width = 1;
-            prg->current_line_width = 0;
-            prg->height++;
-        }
-        else if (line[i] == '\n' || !line[i])
-        {
-            if (prg->current_line_width != prg->width)
-                free_if_invalid_line(line, fd, prg, 3);
-            if (line[i] == '\n') 
-                prg->valid_if_last_line = 1;
-            else if (!prg->valid_if_last_line)
-                free_if_invalid_line(line, fd, prg, 6);
-            prg->current_line_width = 0;
-            prg->height++;
-        }
+        check_when_end_of_line(prg, line, i, fd);
         check_height_width(prg);  
     }
 }

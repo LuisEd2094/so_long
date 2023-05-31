@@ -1,4 +1,4 @@
-    #include "so_long.h"
+#include "so_long.h"
 
 t_prg *init_prg_info(void)
 {
