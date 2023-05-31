@@ -13,33 +13,35 @@ int main(int argc, char **argv)
     ft_printf("Valid Map\n");    
     
     
-    void *mlx_ptr;
-    void *mlx_window;
-    void *image_ptr;
+
 
     int width = 1280;
-    int height = 852;
+    int height = 720;
 
-    mlx_ptr = mlx_init();
-    if (!mlx_ptr)
+    prg->mlx->ptr = mlx_init();
+    if (!prg->mlx->ptr)
         return -1;
 
-    mlx_window = mlx_new_window(mlx_ptr, width, height, "Image Drawing");
+    prg->mlx->window = mlx_new_window(prg->mlx->ptr, width, height, "Image Drawing");
 
     // Create a new image
-    image_ptr = mlx_xpm_file_to_image(mlx_ptr, "sample_640×426.xpm", &width, &height);
-    if (!image_ptr)
+    prg->mlx->player = mlx_xpm_file_to_image(prg->mlx->ptr, "./imgs/clover-1.xpm", &width, &height);
+    prg->mlx->exit = mlx_xpm_file_to_image(prg->mlx->ptr, "./imgs/Yellow-green_crystal1.xpm", &width, &height);
+
+    if (!prg->mlx->player)
     {
-        mlx_destroy_window(mlx_ptr, mlx_window);
-        mlx_destroy_display(mlx_ptr);
+        mlx_destroy_window(prg->mlx->ptr, prg->mlx->window);
+        mlx_destroy_display(prg->mlx->ptr);
         printf("HOLA");
-        free(mlx_ptr);
+        free(prg->mlx->ptr);
         return -1;
     }
 
-    mlx_put_image_to_window(mlx_ptr, mlx_window, image_ptr, 0, 0);
+    mlx_put_image_to_window(prg->mlx->ptr, prg->mlx->window, prg->mlx->player, 0, 0);
+    mlx_put_image_to_window(prg->mlx->ptr, prg->mlx->window, prg->mlx->exit, 64, 0);
 
-    mlx_loop(mlx_ptr);
+
+    mlx_loop(prg->mlx->ptr);
 
     return 0;
 

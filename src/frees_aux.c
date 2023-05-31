@@ -12,6 +12,7 @@ void free_prg(t_prg *prg)
     if (prg->obstacles_pos->head)
         ft_lstclear(&(prg->obstacles_pos->head), &free);
     free(prg->obstacles_pos);
+    free(prg->mlx);
     free(prg);
 }
 

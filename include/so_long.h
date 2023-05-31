@@ -15,6 +15,19 @@ typedef struct t_s_pos_list
     t_list *head;
 }   t_pos_list;
 
+
+typedef struct  t_s_mlx
+{
+    void    *ptr;
+    void    *window;
+    void    *player;
+    void    *exit;
+    void    *collec;
+    void    *free;
+    void    *obst;
+
+}   t_mlx;
+
 typedef struct t_s_prg
 {
     int height;
@@ -23,12 +36,14 @@ typedef struct t_s_prg
     int found_width;
     int valid_if_last_line;
     int player;
-    t_position *player_pos;
-    int exit;
-    t_position *exit_pos;
     int collectables;
+    int exit;
+    t_position *player_pos;
+    t_position *exit_pos;
     t_pos_list *collectables_pos;  
-    t_pos_list *obstacles_pos;  
+    t_pos_list *obstacles_pos;
+    t_mlx   *mlx;
+
 }   t_prg;
 
 
