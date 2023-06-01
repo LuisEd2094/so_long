@@ -31,7 +31,6 @@ void first_draw(t_prg *prg)
     int i;
     int j;
 
-//|| prg->obst_pos[i][j]
     i = 0;
     j = 0;
     while (i < prg->width)
