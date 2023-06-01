@@ -22,6 +22,7 @@ void    init_mlx_vars(t_prg *prg)
     prg->mlx->player = mlx_xpm_file_to_image(prg->mlx->ptr, "./imgs/player.xpm", &(prg->winw_width),  &(prg->winw_height));
     prg->mlx->exit = mlx_xpm_file_to_image(prg->mlx->ptr, "./imgs/door.xpm", &(prg->winw_width),  &(prg->winw_height));
     prg->mlx->collec = mlx_xpm_file_to_image(prg->mlx->ptr, "./imgs/collect.xpm", &(prg->winw_width),  &(prg->winw_height));
+    prg->mlx->player_exit = mlx_xpm_file_to_image(prg->mlx->ptr, "./imgs/player_exit.xpm", &(prg->winw_width),  &(prg->winw_height));
 
 //// NEED TO CHECK IF IMGS LOAD IF NOT NEED TO FREE PROGRAM AND RETURN ERROR
 }

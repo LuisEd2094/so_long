@@ -46,37 +46,52 @@ int is_in_exit(t_position *player, t_position *exit)
     return (0);
 }
 
-int make_move(t_prg * prg, int x_chg, int y_chg)
+void make_visual_move(t_prg *prg, int x_chg, int y_chg)
 {
-    ft_printf("Collectable count %i\n", prg->collectables);
+    mlx_put_image_to_window(prg->mlx->ptr, prg->mlx->window, prg->mlx->player, (prg->player_pos->x + x_chg) * 64, (prg->player_pos->y + y_chg) * 64);
+    if(is_in_exit(prg->player_pos, prg->exit_pos))
+        mlx_put_image_to_window(prg->mlx->ptr, prg->mlx->window, prg->mlx->exit, prg->player_pos->x * 64, prg->player_pos->y * 64);
+    else
+        mlx_put_image_to_window(prg->mlx->ptr, prg->mlx->window, prg->mlx->free, prg->player_pos->x * 64, prg->player_pos->y * 64);
     prg->player_pos->x += x_chg;
     prg->player_pos->y += y_chg;
-    //MAKE VISUAL MOVE HERE 
+    if(is_in_exit(prg->player_pos, prg->exit_pos))
+        mlx_put_image_to_window(prg->mlx->ptr, prg->mlx->window, prg->mlx->player_exit, prg->player_pos->x * 64, prg->player_pos->y * 64);
+
+
+}
+
+int make_move(t_prg * prg, int x_chg, int y_chg)
+{
+    make_visual_move(prg, x_chg, y_chg); 
+    //MAKE VISUAL MOVE HERE
     if (prg->collectables == 0 && is_in_exit(prg->player_pos, prg->exit_pos))
+    {
+        ft_printf("You won the game, nice job!\n");
         close_game (prg); // END GAME
+    }
     else if (check_if_collide(prg->player_pos, prg->collect_pos, 0 , 0))
     {
         prg->collect_pos[prg->player_pos->x][prg->player_pos->y] = 0;
         prg->collectables--;
-        ft_printf("I picked up a collectable\nCollectables remaining %i\n", prg->collectables);
     }
-
+    prg->moves++;
+    ft_printf("You have made %i moves so far!\n", prg->moves);
     return (1);
 }
 
 int key_hook(int key, t_prg *prg)
 {
     //leaving this here to check values in the future 
-    //ft_printf("key %i\n", key);
     if (key == KEY_ESC || key == KEY_Q)
         close_game(prg);
-    else if (key == KEY_W && is_valid_move(prg, 0, -1))
+    else if ((key == KEY_W || key == KEY_UP) && is_valid_move(prg, 0, -1))
         return (make_move(prg, 0, -1));
-    else if (key == KEY_A && is_valid_move(prg, -1, 0))
+    else if ((key == KEY_A || key == KEY_LFT) && is_valid_move(prg, -1, 0))
         return (make_move(prg, -1, 0));
-    else if (key == KEY_D && is_valid_move(prg, 1, 0))
+    else if ((key == KEY_D || key == KEY_RGT) && is_valid_move(prg, 1, 0))
         return (make_move(prg, 1, 0));
-    else if (key == KEY_S && is_valid_move(prg, 0 , 1))
+    else if ((key == KEY_S || key == KEY_DOWN) && is_valid_move(prg, 0 , 1))
         return (make_move(prg, 0 , 1));
     return (0);
 }

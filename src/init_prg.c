@@ -26,6 +26,7 @@ t_prg *init_prg_info(void)
     new_prg->obstacles_list = (t_pos_list *)malloc(sizeof(t_pos_list));
     new_prg->obstacles_list->head = NULL; 
     new_prg->mlx =(t_mlx *)malloc(sizeof(t_mlx));
+    new_prg->moves = 0;
 
 
 

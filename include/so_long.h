@@ -27,6 +27,7 @@ typedef struct  t_s_mlx
     void    *collec;
     void    *free;
     void    *obst;
+    void    *player_exit;
 
 }   t_mlx;
 
@@ -45,6 +46,7 @@ typedef struct t_s_prg
     int max_height;
     int winw_width;
     int winw_height;
+    int moves;
     t_position *player_pos;
     t_position *exit_pos;
     t_pos_list *collectables_list;  
