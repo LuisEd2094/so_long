@@ -56,6 +56,7 @@ int make_move(t_prg * prg, int x_chg, int y_chg)
         close_game (prg); // END GAME
     else if (check_if_collide(prg->player_pos, prg->collect_pos, 0 , 0))
     {
+        prg->collect_pos[prg->player_pos->x][prg->player_pos->y] = 0;
         prg->collectables--;
         ft_printf("I picked up a collectable\nCollectables remaining %i\n", prg->collectables);
     }
