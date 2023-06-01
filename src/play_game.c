@@ -32,8 +32,10 @@ void first_draw(t_prg *prg)
         j = 0;
         while (j < prg->height)
         {
-            if (i == 0 || i == prg->width - 1 || j == 0 || j == prg->height - 1)
+            if (i == 0 || i == prg->width - 1 || j == 0 || j == prg->height - 1 || prg->obst_pos[i][j])
                 mlx_put_image_to_window(prg->mlx->ptr, prg->mlx->window, prg->mlx->obst, i * 64, j * 64);
+            else 
+                mlx_put_image_to_window(prg->mlx->ptr, prg->mlx->window, prg->mlx->free, i * 64, j * 64);
 
             j++;
         }
