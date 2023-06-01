@@ -60,12 +60,16 @@ t_prg  *init_prg_info(void);
 
 t_prg   *parse_arguments(int argc, char **argv);
 void    set_position(int *value, t_position *position, t_prg *prg);
+void    get_obstacles_and_collectables_to_arrays(t_prg  *prg);
+int     add_pos_to_list(t_pos_list *list, int x, int y);
 
 
 void    check_if_EOF(int *is_EOF);
 int     check_if_valid_character(char chr);
 int     check_height_width(t_prg *prg);
 void    check_file_type(char *argv);
+void    check_line(int  *is_EOF, char *line, t_prg *prg, int fd);
+
 
 
 void play_game(t_prg *prg);
