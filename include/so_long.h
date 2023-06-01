@@ -41,6 +41,8 @@ typedef struct t_s_prg
     int exit;
     int max_width;
     int max_height;
+    int winw_width;
+    int winw_height;
     t_position *player_pos;
     t_position *exit_pos;
     t_pos_list *collectables_list;  
@@ -54,16 +56,26 @@ typedef struct t_s_prg
 
 
 extern  int BUFFER_SIZE;
-void	errors(int val);
-t_prg   *parse_arguments(int argc, char **argv);
-void    check_file_type(char *argv);
 t_prg  *init_prg_info(void);
-void    free_if_invalid_line(char *line, int fd, t_prg *prg, int error);
-int     check_if_valid_character(char chr);
-void    check_if_EOF(int *is_EOF);
+
+t_prg   *parse_arguments(int argc, char **argv);
 void    set_position(int *value, t_position *position, t_prg *prg);
-void    free_prg(t_prg *prg);
+
+
+void    check_if_EOF(int *is_EOF);
+int     check_if_valid_character(char chr);
 int     check_height_width(t_prg *prg);
+void    check_file_type(char *argv);
+
+
+void play_game(t_prg *prg);
+
+
+void	errors(int val);
+
+
+void    free_prg(t_prg *prg, int error);
+void    free_if_invalid_line(char *line, int fd, t_prg *prg, int error);
 
 
 /////// HELPERS FOR DEV ////

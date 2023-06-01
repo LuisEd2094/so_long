@@ -156,7 +156,7 @@ t_prg *parse_file(int fd)
     }
     if (prg->height == prg->width)
     {
-        free_prg(prg);
+        free_prg(prg, 1);
         errors(3);
     }
     if (!prg->player || !prg->exit || !prg->collectables)

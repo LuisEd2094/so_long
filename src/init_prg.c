@@ -17,6 +17,8 @@ t_prg *init_prg_info(void)
     new_prg->collectables = 0;
     new_prg->max_width = 20;
     new_prg->max_height = 12;
+    new_prg->winw_height = 0;
+    new_prg->winw_width = 0;
     new_prg->player_pos = (t_position *)malloc(sizeof(t_position));
     new_prg->exit_pos = (t_position *)malloc(sizeof(t_position));
     new_prg->collectables_list = (t_pos_list *)malloc(sizeof(t_pos_list));
