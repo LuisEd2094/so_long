@@ -7,7 +7,7 @@
 int close_window(t_prg *prg)
 {
     //free(prg);
-    free_mlx(prg->mlx);
+    free_mlx(prg);
     free_prg(prg, 0);
     return (0);
 }
