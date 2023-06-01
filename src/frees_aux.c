@@ -27,6 +27,7 @@ void free_prg(t_prg *prg, int error)
         i++;
     }
     free(prg->obst_pos);
+    free(prg->mlx);
     free(prg);
     if (!error)
         exit(EXIT_SUCCESS);

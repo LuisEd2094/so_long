@@ -57,18 +57,15 @@ void make_visual_move(t_prg *prg, int x_chg, int y_chg)
     prg->player_pos->y += y_chg;
     if(is_in_exit(prg->player_pos, prg->exit_pos))
         mlx_put_image_to_window(prg->mlx->ptr, prg->mlx->window, prg->mlx->player_exit, prg->player_pos->x * 64, prg->player_pos->y * 64);
-
-
 }
 
 int make_move(t_prg * prg, int x_chg, int y_chg)
 {
     make_visual_move(prg, x_chg, y_chg); 
-    //MAKE VISUAL MOVE HERE
     if (prg->collectables == 0 && is_in_exit(prg->player_pos, prg->exit_pos))
     {
         ft_printf("You won the game, nice job!\n");
-        close_game (prg); // END GAME
+        close_game (prg);
     }
     else if (check_if_collide(prg->player_pos, prg->collect_pos, 0 , 0))
     {
@@ -82,7 +79,7 @@ int make_move(t_prg * prg, int x_chg, int y_chg)
 
 int key_hook(int key, t_prg *prg)
 {
-    //leaving this here to check values in the future 
+    //ft_printf("%i\n", key); // CHECKER OF KEYS VALUES
     if (key == KEY_ESC || key == KEY_Q)
         close_game(prg);
     else if ((key == KEY_W || key == KEY_UP) && is_valid_move(prg, 0, -1))

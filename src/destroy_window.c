@@ -12,5 +12,4 @@ void    free_mlx(t_prg *prg)
     mlx_destroy_window(prg->mlx->ptr, prg->mlx->window);
     mlx_destroy_display(prg->mlx->ptr);
     free(prg->mlx->ptr);
-    free(prg->mlx);
 }

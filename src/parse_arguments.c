@@ -46,5 +46,4 @@ t_prg   *parse_arguments(int argc, char **argv)
     if (fd < 0)
         errors(2);
     return (parse_file(fd));
- 
 }
