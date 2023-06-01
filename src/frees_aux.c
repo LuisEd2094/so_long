@@ -12,9 +12,7 @@ void free_prg(t_prg *prg, int error)
     if (prg->obstacles_list->head)
         ft_lstclear(&(prg->obstacles_list->head), &free);
     free(prg->obstacles_list);
-    free(prg->mlx);
     int i = 0;
-
     while (i < prg->max_width)
     {
         free(prg->collect_pos[i]);
@@ -22,6 +20,7 @@ void free_prg(t_prg *prg, int error)
     }
     free(prg->collect_pos);
     i = 0;
+
     while (i < prg->max_width)
     {
         free(prg->obst_pos[i]);

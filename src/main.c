@@ -10,12 +10,12 @@ int main(int argc, char **argv)
     t_prg *prg;
 
     prg = parse_arguments(argc, argv);
-    ft_printf("Valid Map\n");
+
     //ft_printf("Height %i Width %i", prg->height, prg->width);
    // print_list(prg->obstacles_list);    
     
     play_game(prg);
-
+    //ft_printf("Valid Map\n");
     //free_prg(prg, 0);
 /*
     t_position *pos1 = (t_position *)malloc(sizeof(t_position));

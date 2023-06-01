@@ -31,7 +31,9 @@ void first_draw(t_prg *prg)
     int i;
     int j;
 
+//|| prg->obst_pos[i][j]
     i = 0;
+    j = 0;
     while (i < prg->width)
     {
         j = 0;
@@ -56,6 +58,7 @@ void play_game(t_prg *prg)
 {
 
     init_mlx_vars(prg);
+    get_hooks(prg);
     first_draw(prg);
     mlx_loop(prg->mlx->ptr);
 }

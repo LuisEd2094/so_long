@@ -72,6 +72,9 @@ void    check_line(int  *is_EOF, char *line, t_prg *prg, int fd);
 
 
 
+void    get_hooks(t_prg *prg);
+
+
 void play_game(t_prg *prg);
 
 
@@ -80,6 +83,8 @@ void	errors(int val);
 
 void    free_prg(t_prg *prg, int error);
 void    free_if_invalid_line(char *line, int fd, t_prg *prg, int error);
+void    free_mlx(t_mlx *mlx);
+
 
 
 /////// HELPERS FOR DEV ////
