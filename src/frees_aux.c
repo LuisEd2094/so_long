@@ -13,6 +13,8 @@ void    free_array(int **array, int length)
         {
             if (array[i])
                 free(array[i++]);
+            else
+                break;
         }   
         free(array);
     }
