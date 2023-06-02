@@ -7,9 +7,16 @@ void    free_array(int **array, int length)
     int i;
 
     i = 0;
-    while (i < length)
-        free(array[i++]);
-    free(array);
+    if (array)
+    {
+        while (i < length)
+        {
+            if (array[i])
+                free(array[i++]);
+        }   
+        free(array);
+    }
+
 }
 
 void free_prg(t_prg *prg, int error)

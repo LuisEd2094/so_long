@@ -1,6 +1,6 @@
 #include "so_long.h"
 
-int **create_2d_arry(int width, int height)
+int **create_2d_array(int width, int height)
 {
     int i;
     int j;
@@ -37,8 +37,8 @@ void    init_mallocs(t_prg *new_prg)
     new_prg->collectables_list = (t_pos_list *)malloc(sizeof(t_pos_list));
     new_prg->obstacles_list = (t_pos_list *)malloc(sizeof(t_pos_list));
     new_prg->mlx =(t_mlx *)malloc(sizeof(t_mlx));
-    new_prg->obst_pos = create_2d_arry(new_prg->max_width, new_prg->max_height);
-    new_prg->collect_pos = create_2d_arry(new_prg->max_width, new_prg->max_height);
+    new_prg->obst_pos = create_2d_array(new_prg->max_width, new_prg->max_height);
+    new_prg->collect_pos = create_2d_array(new_prg->max_width, new_prg->max_height);
     check_if_any_fail(new_prg);
     new_prg->obstacles_list->head = NULL; 
     new_prg->collectables_list->head = NULL;
