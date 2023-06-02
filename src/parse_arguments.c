@@ -1,13 +1,6 @@
-#include <fcntl.h>
-#include <unistd.h>
-#include <errno.h>
 #include "so_long.h"
 #include "get_next_line.h"
-#include "ft_printf.h"
-#include "libft.h"
 #include <stdio.h>
-
-
 
 t_prg *parse_file(int fd)
 {

@@ -89,7 +89,7 @@ for i in "${!test_cases[@]}"; do
     fi
 
     if [[ "$valgrind_output" == *"$expected_leak"* ]]; then
-        echo -e "Test case \"$test_case\" - No leaks message ${GREEN}passed${NC}."
+        echo -e "Test case \"$test_case\" - No leaks message ${GREEN}passed${NC}.\n "$valgrind_output""
     else
         echo -e "Test case \"$test_case\" - No leaks message ${RED}failed${NC}. Expected: \"$expected_leak\""
     fi

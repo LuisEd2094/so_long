@@ -1,8 +1,5 @@
 #include "so_long.h"
 
-
-
-
 void get_list_to_array(t_list *current, int **array)
 {
     t_list *temp;
@@ -60,7 +57,6 @@ int add_pos_to_list(t_pos_list *list, int x, int y)
     new_pos->y = y;
     node = ft_lstnew(new_pos);
     ///////NEED TO CHECK NULLS AND RETURNS
-
     ft_lstadd_front(&(list)->head, node);
     return (1);
 }

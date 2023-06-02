@@ -77,9 +77,12 @@ void    check_line(int  *is_EOF, char *line, t_prg *prg, int fd);
 
 
 void    get_hooks(t_prg *prg);
+int     key_hook(int key, t_prg *prg);
+int     make_move(t_prg * prg, int x_chg, int y_chg);
 
 
 void play_game(t_prg *prg);
+
 
 
 void	errors(int val);
@@ -88,6 +91,9 @@ void	errors(int val);
 void    free_prg(t_prg *prg, int error);
 void    free_if_invalid_line(char *line, int fd, t_prg *prg, int error);
 void    free_mlx(t_prg *prg);
+int     close_game(t_prg *prg);
+int     check_if_collide(t_position *pos, int **pos_to_check, int x_chg, int y_chg);
+
 
 
 

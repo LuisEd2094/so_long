@@ -2,6 +2,16 @@
 #include "get_next_line.h"
 
 
+void    free_array(int **array, int length)
+{
+    int i;
+
+    i = 0;
+    while (i < length)
+        free(array[i++]);
+    free(array);
+}
+
 void free_prg(t_prg *prg, int error)
 {
     free(prg->player_pos);
@@ -12,21 +22,8 @@ void free_prg(t_prg *prg, int error)
     if (prg->obstacles_list->head)
         ft_lstclear(&(prg->obstacles_list->head), &free);
     free(prg->obstacles_list);
-    int i = 0;
-    while (i < prg->max_width)
-    {
-        free(prg->collect_pos[i]);
-        i++;
-    }
-    free(prg->collect_pos);
-    i = 0;
-
-    while (i < prg->max_width)
-    {
-        free(prg->obst_pos[i]);
-        i++;
-    }
-    free(prg->obst_pos);
+    free_array(prg->collect_pos, prg->max_width);
+    free_array(prg->obst_pos, prg->max_width);
     free(prg->mlx);
     free(prg);
     if (!error)
