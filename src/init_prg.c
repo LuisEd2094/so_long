@@ -15,7 +15,7 @@ int **create_2d_array(int width, int height)
         j = 0;
         array[i] = (int *)malloc(sizeof(int) * width);
         if (!array[i])
-            return (NULL);
+            return (NULL); // THIS SHOULDN? RETURN NULL, IT SHOULD CHEKC IF ANY OF THE VALUES BEFORE IT EXITS, FREE IT AND THE RETURN
         while (j < height)
             array[i][j++] = 0;
         i++;
@@ -28,6 +28,18 @@ void    check_if_any_fail(t_prg *new_prg)
     if (new_prg)
         return;
     return;
+}
+
+void    init_mlx(t_mlx *mlx)
+{   
+    mlx->ptr = NULL;
+    mlx->window = NULL;
+    mlx->player = NULL;
+    mlx->exit = NULL;
+    mlx->collec = NULL;
+    mlx->free = NULL;
+    mlx->obst = NULL;
+    mlx->player_exit = NULL;
 }
 
 void    init_mallocs(t_prg *new_prg)
@@ -44,18 +56,7 @@ void    init_mallocs(t_prg *new_prg)
     new_prg->collectables_list->head = NULL;
 }
 
-void    init_mlx(t_mlx *mlx)
-{   
-    mlx->ptr = NULL;
-    mlx->window = NULL;
-    mlx->player = NULL;
-    mlx->exit = NULL;
-    mlx->collec = NULL;
-    mlx->free = NULL;
-    mlx->obst = NULL;
-    mlx->player_exit = NULL;
 
-}
 
 
 t_prg *init_prg_info(void)
