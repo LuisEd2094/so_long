@@ -46,7 +46,6 @@ void     check_if_EOF(int *is_EOF)
         errors(2);
 }
 
-
 int    check_height_width(t_prg *prg)
 {
     if (prg->height > prg->max_height || prg->width > prg->max_width)

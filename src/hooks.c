@@ -4,7 +4,7 @@
 
 int close_game(t_prg *prg)
 {
-    free_mlx(prg);
+    free_mlx(prg->mlx);
     free_prg(prg, 0);
     return (0);
 }

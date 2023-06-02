@@ -46,6 +46,7 @@ typedef struct t_s_prg
     int max_height;
     int winw_width;
     int winw_height;
+    int sqr_size;
     int moves;
     t_position *player_pos;
     t_position *exit_pos;
@@ -90,7 +91,7 @@ void	errors(int val);
 
 void    free_prg(t_prg *prg, int error);
 void    free_if_invalid_line(char *line, int fd, t_prg *prg, int error);
-void    free_mlx(t_prg *prg);
+void    free_mlx(t_mlx *mlx);
 int     close_game(t_prg *prg);
 int     check_if_collide(t_position *pos, int **pos_to_check, int x_chg, int y_chg);
 
