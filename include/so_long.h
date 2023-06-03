@@ -90,6 +90,7 @@ void	errors(int val);
 
 
 void    free_prg(t_prg *prg, int error);
+void*    free_array(int **array, int length);
 void    free_if_invalid_line(char *line, int fd, t_prg *prg, int error);
 void    free_mlx(t_mlx *mlx);
 int     close_game(t_prg *prg);

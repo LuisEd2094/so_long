@@ -2,7 +2,9 @@
 #include "get_next_line.h"
 
 
-void    free_array(int **array, int length)
+
+
+void *free_array(int **array, int length)
 {
     int i;
 
@@ -18,6 +20,7 @@ void    free_array(int **array, int length)
         }   
         free(array);
     }
+    return (NULL);
 
 }
 

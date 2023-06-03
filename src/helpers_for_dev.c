@@ -2,6 +2,10 @@
 #include "ft_printf.h"
 
 
+    //line = NULL; ERRORS AND LINE COMMENT AS REMINDER ON HOW TO TEST ERRORS
+    //errno = ENOMEM;
+    //errno = EIO;
+
 void	print_list(t_pos_list *pos_list)
 {
     t_list *current = pos_list->head;

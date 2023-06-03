@@ -37,9 +37,7 @@ int    check_if_valid_character(char chr)
 
 void     check_if_EOF(int *is_EOF)
 {
-    //line = NULL; ERRORS AND LINE COMMENT AS REMINDER ON HOW TO TEST ERRORS
-    //errno = ENOMEM;
-    //errno = EIO;
+
     if (errno == 0)
         *is_EOF = 1;
     else
