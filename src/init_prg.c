@@ -18,7 +18,7 @@ int **create_2d_array(int width, int height)
 
         array[i] = (int *)malloc(sizeof(int) * width);
         if (!array[i])
-            return (free_array(array, i));// THIS SHOULDN? RETURN NULL, IT SHOULD CHEKC IF ANY OF THE VALUES BEFORE IT EXITS, FREE IT AND THE RETURN
+            return (free_array(array, i));
         j = 0; 
         while (j < height)
             array[i][j++] = 0;
