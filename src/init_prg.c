@@ -61,6 +61,7 @@ void    init_mallocs(t_prg *new_prg)
     check_if_any_fail(new_prg);
 }
 
+#include "errno.h"
 t_prg *init_prg_info(void)
 {
     t_prg *new_prg;
