@@ -28,12 +28,19 @@ void free_prg(t_prg *prg, int error)
 {
     free(prg->player_pos);
     free(prg->exit_pos);
-    if (prg->collectables_list->head)
-        ft_lstclear(&(prg->collectables_list->head), &free);
-    free(prg->collectables_list);
-    if (prg->obstacles_list->head)
-        ft_lstclear(&(prg->obstacles_list->head), &free);
-    free(prg->obstacles_list);
+    if (prg->collectables_list)
+    {
+        if (prg->collectables_list->head)
+            ft_lstclear(&(prg->collectables_list->head), &free);
+        free(prg->collectables_list);
+    }
+    if (prg->obstacles_list)
+    {
+        if (prg->obstacles_list->head)
+            ft_lstclear(&(prg->obstacles_list->head), &free);
+        free(prg->obstacles_list);
+
+    }
     free_array(prg->collect_pos, prg->max_width);
     free_array(prg->obst_pos, prg->max_width);
     free(prg->mlx);
