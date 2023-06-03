@@ -6,10 +6,10 @@
 void errors(int val)
 {
     ft_printf("Error\n");
-    if (val == 1)
-        ft_printf("Usage: ./so_long path/to/file\n");
-    else if (val == 2)
+    if (val == 2 || errno)
         perror(NULL);
+    else if (val == 1)
+        ft_printf("Usage: ./so_long path/to/file\n");
     else if (val == 3)
         ft_printf("Please provide a rectangular map\n");
     else if (val == 4)

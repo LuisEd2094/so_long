@@ -37,7 +37,6 @@ int    check_if_valid_character(char chr)
 
 void     check_if_EOF(int *is_EOF)
 {
-
     if (errno == 0)
         *is_EOF = 1;
     else

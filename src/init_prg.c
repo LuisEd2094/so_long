@@ -1,7 +1,4 @@
 #include "so_long.h"
-#include "errno.h"
-#include "ft_printf.h"
-
 
 int **create_2d_array(int width, int height)
 {
@@ -63,9 +60,6 @@ void    init_mallocs(t_prg *new_prg)
     new_prg->collect_pos = create_2d_array(new_prg->max_width, new_prg->max_height);
     check_if_any_fail(new_prg);
 }
-
-
-
 
 t_prg *init_prg_info(void)
 {

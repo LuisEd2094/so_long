@@ -1,5 +1,6 @@
 #include "so_long.h"
 
+
 void get_list_to_array(t_list *current, int **array)
 {
     t_list *temp;
@@ -44,19 +45,23 @@ void  get_obstacles_and_collectables_to_arrays(t_prg  *prg)
     get_list_to_array(prg->obstacles_list->head, (prg->obst_pos));
 }
 
-
 int add_pos_to_list(t_pos_list *list, int x, int y)
 {
     t_position  *new_pos;
     t_list      *node;
 
-    new_pos = NULL;
-    node = NULL;
     new_pos = (t_position *)malloc(sizeof(t_position));
+    if (!new_pos)
+        return (0);
     new_pos->x = x;
     new_pos->y = y;
     node = ft_lstnew(new_pos);
-    ///////NEED TO CHECK NULLS AND RETURNS
+    if (!node)
+    {
+        free(new_pos);
+        return (0);
+    }
     ft_lstadd_front(&(list)->head, node);
+
     return (1);
 }
