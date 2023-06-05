@@ -1,9 +1,22 @@
 #include "so_long.h"
 
+int *create_1d_array(int width, int height)
+{
+    int j;
+    int *array;
+
+    array = (int *)malloc(sizeof(int) * width);
+    if (!array)
+        return (NULL);
+    j = 0; 
+    while (j < height)
+        array[j++] = 0;
+    return (array);
+}
+
 int **create_2d_array(int width, int height)
 {
     int i;
-    int j;
     int **array;
 
     array = (int **)malloc(sizeof(int *) * width);
@@ -13,12 +26,9 @@ int **create_2d_array(int width, int height)
     while (i < width)
     {
 
-        array[i] = (int *)malloc(sizeof(int) * width);
+        array[i] = create_1d_array(width, height);
         if (!array[i])
-            return (free_array(array, i));
-        j = 0; 
-        while (j < height)
-            array[i][j++] = 0;
+            return(free_array(array, i));
         i++;
     }
     return(array);
@@ -28,7 +38,7 @@ void    check_if_any_fail(t_prg *new_prg)
 {
     if (!new_prg->player_pos || !new_prg->exit_pos || !new_prg->collectables_list \
         || !new_prg->obstacles_list || !new_prg->mlx || !new_prg->obst_pos \
-        || !new_prg->collect_pos)
+        || !new_prg->collect_pos || !new_prg->visited)
         free_prg(new_prg, 2);
     return;
 }
@@ -58,6 +68,7 @@ void    init_mallocs(t_prg *new_prg)
     new_prg->mlx = (t_mlx *)malloc(sizeof(t_mlx));
     new_prg->obst_pos = create_2d_array(new_prg->max_width, new_prg->max_height);
     new_prg->collect_pos = create_2d_array(new_prg->max_width, new_prg->max_height);
+    new_prg->visited = create_2d_array(new_prg->max_width, new_prg->max_height);
     check_if_any_fail(new_prg);
 }
 

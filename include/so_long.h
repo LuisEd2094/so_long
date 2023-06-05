@@ -55,6 +55,9 @@ typedef struct t_s_prg
     t_mlx   *mlx;
     int **obst_pos;
     int **collect_pos;
+    int **visited;
+    int *row_change;
+    int *col_change;
 
 }   t_prg;
 
@@ -74,6 +77,14 @@ int     check_if_valid_character(char chr);
 int     check_height_width(t_prg *prg);
 void    check_file_type(char *argv);
 void    check_line(int  *is_EOF, char *line, t_prg *prg, int fd);
+void    check_path(t_prg *prg);
+int     check_if_collide(t_position *pos, int **pos_to_check, int x_chg, int y_chg);
+int     is_in_exit(t_position *player, t_position *exit);
+int     no_border_collision(t_prg* prg, int x_chg, int y_chg);
+
+
+
+
 
 
 

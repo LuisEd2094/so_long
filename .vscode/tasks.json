@@ -14,7 +14,8 @@
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",
                 "-L${workspaceFolder}/libft",
-                "-lft"
+                "-lft",
+                "-I./minilibx/minilibx-linux"
             ],
             "options": {
                 "cwd": "${fileDirname}"

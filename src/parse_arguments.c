@@ -24,7 +24,8 @@ t_prg *parse_file(int fd)
     if (!prg->player || !prg->exit || !prg->collectables)
         free_if_invalid_line(line, fd, prg, 7);
     get_obstacles_and_collectables_to_arrays(prg);
-    close(fd);   
+    close(fd);
+    check_path(prg);   
     return (prg);
 }
 

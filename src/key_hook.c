@@ -10,7 +10,7 @@ int no_border_collision(t_prg* prg, int x_chg, int y_chg)
     return (0);
 }
 
-int is_valid_move(t_prg* prg, int x_chg, int y_chg)
+static int is_valid_move(t_prg* prg, int x_chg, int y_chg)
 {
     if (no_border_collision(prg, x_chg, y_chg) && \
     !check_if_collide(prg->player_pos, prg->obst_pos, x_chg , y_chg))

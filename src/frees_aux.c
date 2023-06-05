@@ -42,6 +42,8 @@ void free_prg(t_prg *prg, int error)
         free_array(prg->collect_pos, prg->max_width);
     if (prg->obst_pos)
         free_array(prg->obst_pos, prg->max_width);
+    if (prg->visited)
+        free_array(prg->visited, prg->max_width);
     if (prg->mlx)
         free(prg->mlx);
     if (prg)
