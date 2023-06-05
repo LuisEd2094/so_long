@@ -58,6 +58,8 @@ typedef struct t_s_prg
     int **visited;
     int *row_change;
     int *col_change;
+    int col_found;
+    int exit_found;
 
 }   t_prg;
 

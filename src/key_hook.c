@@ -1,6 +1,6 @@
 #include "so_long.h"
 
-int no_border_collision(t_prg* prg, int x_chg, int y_chg)
+int no_border_collision(t_prg *prg, int x_chg, int y_chg)
 {
     if (prg->player_pos->x + x_chg < prg->width - 1 && \
         prg->player_pos->y + y_chg < prg->height -1 && \

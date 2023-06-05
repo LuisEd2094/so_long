@@ -95,6 +95,8 @@ t_prg *init_prg_info(void)
     new_prg->winw_width = 0;
     new_prg->sqr_size = 64;
     new_prg->moves = 0;
+    new_prg->col_found = 0;
+    new_prg->exit_found = 0;
     init_mallocs(new_prg);
     init_mlx(new_prg->mlx);
     return(new_prg);
