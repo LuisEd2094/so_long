@@ -25,6 +25,14 @@ static int is_valid(t_prg *prg, int col, int row)
     return (0);
 }
 
+int check_if_done(t_prg *prg)
+{
+    if ((prg->col_found == prg->collectables && prg->exit_found) \
+    || errno)
+        return (1);
+    return (0);
+}
+
 void    depth_first(int col, int row, t_prg *prg)
 {
     t_position *new_pos;
@@ -48,7 +56,7 @@ void    depth_first(int col, int row, t_prg *prg)
         if (is_valid(prg, new_pos->x, new_pos->y) && \
         !check_if_collide(new_pos, prg->obst_pos, 0, 0))
             depth_first(new_pos->x, new_pos->y, prg);
-        if (errno)
+        if (check_if_done(prg))
             break;
         i++;
     }
