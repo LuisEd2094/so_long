@@ -31,9 +31,8 @@ void    depth_first(int col, int row, t_prg *prg)
     int         i;
 
     new_pos = (t_position *)malloc(sizeof(t_position));
-    //errno = ENOMEM;
     if (!new_pos)
-        free_prg(prg, 2);
+        return; 
     prg->visited[col][row] = 1;
     new_pos->x = col;
     new_pos->y = row;
@@ -41,19 +40,18 @@ void    depth_first(int col, int row, t_prg *prg)
         prg->col_found++;
     if (is_in_exit(new_pos, prg->exit_pos))
         prg->exit_found = 1;
-
     i = 0;
     while (i < 4)
     {
         new_pos->x = col + prg->col_change[i];
         new_pos->y = row + prg->row_change[i];
-        //ft_printf("%i new Col, %i new Row\n", new_pos->x, new_pos->y);
         if (is_valid(prg, new_pos->x, new_pos->y) && \
         !check_if_collide(new_pos, prg->obst_pos, 0, 0))
             depth_first(new_pos->x, new_pos->y, prg);
+        if (errno)
+            break;
         i++;
     }
-
     free(new_pos); 
 }
 
