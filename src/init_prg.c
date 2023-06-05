@@ -1,15 +1,15 @@
 #include "so_long.h"
 
-int *create_1d_array(int height)
+int *create_1d_array(int lenght)
 {
     int j;
     int *array;
 
-    array = (int *)malloc(sizeof(int) * height);
+    array = (int *)malloc(sizeof(int) * lenght);
     if (!array)
         return (NULL);
     j = 0; 
-    while (j < height)
+    while (j < lenght)
         array[j++] = 0;
     return (array);
 }
@@ -25,7 +25,6 @@ int **create_2d_array(int width, int height)
     i = 0;
     while (i < width)
     {
-
         array[i] = create_1d_array(height);
         if (!array[i])
             return(free_array(array, i));
