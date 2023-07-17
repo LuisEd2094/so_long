@@ -1,5 +1,4 @@
 # so_long
-So Long proyect
 So Long Project from 42 School
 
 It's a basic 2d game where you collect all the objects and reach the exit.
