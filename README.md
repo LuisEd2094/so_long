@@ -43,6 +43,3 @@ An example of an invalid map:
 
 As you can see, the player is on the left side and the collectable and exit are on the right side, with no way for the player to get there following the 
 move restrictions, as such the program will display an error.
-
-
-i
