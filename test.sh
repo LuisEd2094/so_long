@@ -1,0 +1,1 @@
+gcc test.c libmlx.a -lXext -lX11 -lm -lz  -o test && ./test
